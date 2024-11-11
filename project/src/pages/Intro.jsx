@@ -2,17 +2,23 @@ import { Box, Typography } from '@mui/material';
 import { AlignCenter, HorizonAlignCenter } from '../GeneralBoxOption';
 import bg from '../../images/bg.gif';
 import bg2 from '../../images/bg2.gif';
+import { keyframes } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
 
 const Intro = () => {
+	const navigate = useNavigate();
 	const MenuButton = ({ title }) => {
 		return (
 			<Typography
+				onClick={() => {
+					navigate('/game/1');
+				}}
 				sx={{
 					width: '100%',
 					color: 'white',
 					fontSize: 28,
 					transition: 'all .5s',
-					':hover': { bgcolor: 'white', userSelect: 'none' },
+					':hover': { bgcolor: 'white', color: 'black', userSelect: 'none' },
 				}}
 			>
 				{title}
@@ -40,10 +46,19 @@ const Intro = () => {
 					backgroundSize: '50%',
 					backgroundRepeat: 'repeat',
 					backgroundImage: `url(${bg2})`,
-					opacity: 0.5,
+					animation: `main 10s linear infinite`,
+					'@keyframes main': {
+						'0%': {
+							opacity: 0.2,
+						},
+						'50%': {
+							opacity: 0.8,
+						},
+						'100%': {
+							opacity: 0.2,
+						},
+					},
 				}}
-				// component="img"
-				// src={bg}
 			/>
 			<Box
 				sx={{
@@ -55,8 +70,8 @@ const Intro = () => {
 					border: 5,
 					borderRadius: 3,
 					justifyContent: 'space-between',
-					borderColor: 'white',
-					bgcolor: 'black',
+					borderColor: 'border.main',
+					bgcolor: 'rgba(0,0,0,1)',
 					zIndex: 100,
 					pt: 5,
 					pb: 5,
@@ -67,7 +82,7 @@ const Intro = () => {
 						2024 MIC 忘年会
 					</Typography>
 					<Typography sx={{ width: '100%', textAlign: 'center', color: 'white', fontSize: 32 }}>
-						- サブタイトル -
+						- ミズカミクエスト -
 					</Typography>
 				</Box>
 				<Box sx={{ display: 'flex', flexDirection: 'column', pl: 4, width: 250 }}>

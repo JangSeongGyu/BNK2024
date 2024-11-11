@@ -6,7 +6,14 @@ const Theme = createTheme({
 		//
 	},
 	typography: {
+		color: 'white',
 		fontFamily: `DotGothic16`,
+	},
+	palette: {
+		border: {
+			main: 'rgba(255,255,255,0.9)',
+			size: 6,
+		},
 	},
 });
 
