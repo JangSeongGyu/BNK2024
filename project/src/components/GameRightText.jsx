@@ -1,17 +1,19 @@
 import { keyframes } from '@emotion/react';
 import { Box, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import SlideText from './SlideText';
+import { TextData } from './TextData';
+import { useRecoilValue } from 'recoil';
+import { GameTextState } from '../recoil/GameSelector';
 
 const GameRightText = () => {
-	const text =
-		'問題ここに書く問題ここに書く問題ここに書く問題ここに書く問題ここに書く問題ここに書く問題ここに書く問題ここに書く問題ここに書く問題ここに書く問題ここに書く問題ここに書く';
+	const text = useRecoilValue(GameTextState);
 	return (
 		<Box
 			sx={{
 				width: '100%',
 				height: '100%',
-				bgcolor: 'rgba(0,0,0,0.85)',
+				// bgcolor: 'rgba(0,0,0,0.85)',
 				border: 6,
 				borderRadius: 2,
 				borderColor: 'border.main',
@@ -28,17 +30,22 @@ const GameRightText = () => {
 					whiteSpace: '', // Preserve line breaks if needed
 				}}
 			>
-				モンスタの名前
+				{/* モンスタの名前 */}
 			</Typography>
 			<Typography
 				sx={{
-					fontSize: 30,
-					color: 'white',
+					fontSize: 10,
+					// color: 'white',
 					textWrap: 'wrap',
 					whiteSpace: '', // Preserve line breaks if needed
 				}}
 			>
-				<SlideText text={text} speed={50} />
+				<SlideText
+					text={useMemo(() => {
+						return text;
+					}, [text])}
+					speed={50}
+				/>
 			</Typography>
 		</Box>
 	);

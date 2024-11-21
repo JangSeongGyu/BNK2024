@@ -8,6 +8,7 @@ const SlideText = ({ text, speed }) => {
 		console.log('display', displayedText);
 	}, [displayedText]);
 	useEffect(() => {
+		setDisplayedText('');
 		let currentIndex = -1;
 		const interval = setInterval(() => {
 			if (currentIndex < text.length - 1) {
@@ -19,7 +20,7 @@ const SlideText = ({ text, speed }) => {
 		}, speed);
 
 		return () => clearInterval(interval);
-	}, []);
+	}, [text]);
 
 	return <>{displayedText}</>;
 };

@@ -8,10 +8,19 @@ import axios from 'axios';
 
 const Client = () => {
 	const [answer, setAnswer] = useState(null);
-	const [live, setLive] = useState(true);
+	const [live, setLive] = useState(false);
 	const [stage, setStage] = useState(0);
 
 	useEffect(() => {
+		axios
+			.get(`/stage`)
+			.then((res) => {
+				setLive(true);
+				setStage(res.data);
+			})
+			.catch(() => {
+				setLive(false);
+			});
 		setInterval(() => {
 			axios
 				.get(`/stage`)
@@ -23,7 +32,7 @@ const Client = () => {
 				.catch(() => {
 					setLive(false);
 				});
-		}, 2000);
+		}, 1000);
 		return () => {
 			clearInterval();
 		};
@@ -56,9 +65,9 @@ const Client = () => {
 
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', bgcolor: 'black' }}>
-			<Box sx={{ display: 'flex', justifyContent: 'space-between',p:1 }}>
+			<Box sx={{ display: 'flex', justifyContent: 'space-between', p: 1 }}>
 				<Typography sx={{ color: 'white', fontSize: 20 }}>STAGE{stage}</Typography>
-				<OnLive live={live} />
+				{/* <OnLive live={live} /> */}
 			</Box>
 			<Box
 				sx={{

@@ -1,11 +1,16 @@
 import { Box, LinearProgress } from '@mui/material';
 import { green, grey, lightGreen, red } from '@mui/material/colors';
+import { useRecoilValue } from 'recoil';
+import { HpState } from '../recoil/GameAtom';
+import { MonsterDisplayState } from '../recoil/GameSelector';
 
-const HpCounter = ({ hp }) => {
+const HpCounter = () => {
+	const hp = useRecoilValue(HpState);
+	const monsterDisplay = useRecoilValue(MonsterDisplayState);
 	return (
 		<LinearProgress
-			colorP
 			sx={{
+				display: monsterDisplay,
 				width: 400,
 				height: 25,
 				backgroundColor: grey[400],
