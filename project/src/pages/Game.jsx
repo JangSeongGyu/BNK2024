@@ -1,6 +1,5 @@
 import { Box, Typography } from '@mui/material';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
-
 import GameMainText from '../components/GameRightText';
 import { AlignCenter } from '../GeneralBoxOption';
 import GameBg from '../components/GameBg';
@@ -22,6 +21,7 @@ import {
 } from '../recoil/GameSelector';
 import { CurrentIndexState, HpState } from '../recoil/GameAtom';
 import TimeOut from '../components/TimeOut';
+import { Sound } from '../components/Sound';
 
 const Game = () => {
 	const [stage, setStage] = useState(0);
@@ -36,6 +36,7 @@ const Game = () => {
 
 	useEffect(() => {
 		if (current === 'text1') {
+			Sound()
 			setStage(1);
 		} else if (current === 'attack1') {
 			setHp(hp - 33);
@@ -112,8 +113,8 @@ const Game = () => {
 						<Box
 							sx={{
 								display: monsterDisplay,
-								width: 30,
-								height: 50,
+								width: 10,
+								height: 10,
 								bgcolor: 'grey',
 								animation: monsterAnimation,
 							}}
@@ -123,7 +124,7 @@ const Game = () => {
 						/>
 
 						{/* <Attack /> */}
-						<HpCounter />
+						{/* <HpCounter /> */}
 					</Box>
 				</Box>
 			</Box>

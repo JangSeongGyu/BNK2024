@@ -2,6 +2,7 @@ import Router from './Route';
 import { RecoilRoot } from 'recoil';
 import axios from 'axios';
 import { useEffect } from 'react';
+import ToasterComp from './components/ToastComp';
 
 const App = () => {
 	axios.defaults.baseURL = import.meta.env.VITE_DOMAIN;
@@ -22,6 +23,7 @@ const App = () => {
 	return (
 		<RecoilRoot>
 			<Router />
+			<ToasterComp />
 		</RecoilRoot>
 	);
 };

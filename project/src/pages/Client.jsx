@@ -5,6 +5,7 @@ import ClientBox from '../../images/ClientBox.png';
 import { useEffect, useState } from 'react';
 import OnLive from '../components/OnLive';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 const Client = () => {
 	const [answer, setAnswer] = useState(null);
@@ -21,6 +22,7 @@ const Client = () => {
 			.catch(() => {
 				setLive(false);
 			});
+
 		setInterval(() => {
 			axios
 				.get(`/stage`)
@@ -38,12 +40,38 @@ const Client = () => {
 		};
 	}, []);
 
+	useEffect(()=>{
+		setAnswer("")
+	},[stage])
+
 	const ButtonClick = (title) => {
+		if(stage==0){
+			toast.success(`準備中です！`)	
+		}
 		setAnswer(title);
-		axios.post(`/answer`, { id: 0, answer: title }).then((res) => {});
+		axios.post(`/answer`, { id: 0, answer: title }).then((res) => {
+			toast.success(`「${title}」提出完了！`)
+		});
 	};
 
 	const SelectButton = ({ title }) => {
+		const check = title == answer
+		if (check) {
+			return (
+				<Box
+					sx={{
+						...AlignCenter,
+						width: '100%',
+						height: '100%',
+						border: 5,
+						borderRadius: 5,
+						borderColor: 'red',
+					}}
+				>
+					<Typography sx={{ fontSize: 80, color: 'white', pb: 2, userSelect: 'none' }}>{title}</Typography>
+				</Box>
+			)
+		}
 		return (
 			<Box
 				onClick={() => {
@@ -62,12 +90,11 @@ const Client = () => {
 			</Box>
 		);
 	};
-
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', bgcolor: 'black' }}>
-			<Box sx={{ display: 'flex', justifyContent: 'space-between', p: 1 }}>
+			<Box sx={{ display: 'flex', justifyContent: 'space-between', p: 1 ,minHeight:20}}>
 				<Typography sx={{ color: 'white', fontSize: 20 }}>STAGE{stage}</Typography>
-				{/* <OnLive live={live} /> */}
+				<OnLive live={live} />
 			</Box>
 			<Box
 				sx={{
@@ -75,13 +102,14 @@ const Client = () => {
 					flexDirection: 'column',
 					height: '50%',
 					width: '100%',
-					pt: 8,
+					pt: 2,
 					px: 2,
 					pb: 2,
+					borderColor:"border.main"
 				}}
 			>
-				<Box sx={{ width: '100%', height: '100%' }}>
-					<Typography sx={{ fontSize: 20, color: 'white', border: 1, p: 1 }}>
+				<Box sx={{ width: '100%',mb:2,}}>
+					<Typography sx={{ fontSize: 18, color: 'white', border: 1,borderColor:"border.main", p: 1 }}>
 						ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題
 					</Typography>
 				</Box>
@@ -89,15 +117,14 @@ const Client = () => {
 					sx={{
 						display: 'flex',
 						flexDirection: 'column',
-						justifyContent: 'end',
 						width: '100%',
 						height: '100%',
 					}}
 				>
-					<Typography sx={{ fontSize: 20, color: 'white' }}>A : 答えA</Typography>
-					<Typography sx={{ fontSize: 20, color: 'white' }}>B : 答えB</Typography>
-					<Typography sx={{ fontSize: 20, color: 'white' }}>C : 答えC</Typography>
-					<Typography sx={{ fontSize: 20, color: 'white' }}>D : 答えD</Typography>
+					<Typography sx={{ fontSize: 18, color: 'white' }}>A : 答えA</Typography>
+					<Typography sx={{ fontSize: 18, color: 'white' }}>B : 答えB</Typography>
+					<Typography sx={{ fontSize: 18, color: 'white' }}>C : 答えC</Typography>
+					<Typography sx={{ fontSize: 18, color: 'white' }}>D : 答えD</Typography>
 				</Box>
 			</Box>
 			<Box
