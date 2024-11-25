@@ -1,9 +1,4 @@
 import { Box, Typography } from '@mui/material';
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
-import GameMainText from '../components/GameRightText';
-
-import game_bg from '../../images/gamebg.jpg';
-import game_bg2 from '../../images/gamebg2.png';
 import { AlignCenter } from '../GeneralBoxOption';
 import GameBg from '../components/GameBg';
 import Stage1 from '../../images/stage1.png';
@@ -26,11 +21,10 @@ import { CurrentIndexState, HpState } from '../recoil/GameAtom';
 import TimeOut from '../components/TimeOut';
 import Sound from '../components/Sound';
 
-const Game = () => {
+export const Game = () => {
 	const [stage, setStage] = useState(0);
 	const [hp, setHp] = useRecoilState(HpState);
 	const [currentIndex, setCurrentIndex] = useRecoilState(CurrentIndexState);
-	const [bgImage, setBgImage] = useState(game_bg);
 	const current = useRecoilValue(CurrentState);
 	const bgAnimation = useRecoilValue(BgAnimationState);
 	const monsterDisplay = useRecoilValue(MonsterDisplayState);
@@ -56,7 +50,6 @@ const Game = () => {
 			setStage(0);
 		} else if (current === 'newMonster') {
 			setHp(100);
-			setBgImage(game_bg2);
 		}
 	}, [current]);
 
@@ -106,11 +99,11 @@ const Game = () => {
 				userSelect: 'none',
 			}}
 		>
-			{/* <Typography>{current}</Typography> */}
+			<Typography>{current}</Typography>
 			{timerDisplay && <TimeOut />}
 
 			<Box sx={{ ...AlignCenter, position: 'relative', width: '100%', height: '60%', py: 2, px: 2 }}>
-				<GameBg bgAnimation={bgAnimation} bgImage={bgImage} />
+				<GameBg bgAnimation={bgAnimation} />
 				<Box
 					sx={{
 						...AlignCenter,
@@ -137,7 +130,7 @@ const Game = () => {
 							src={Stage1}
 						/>
 
-						<Attack />
+						{/* <Attack /> */}
 						<HpCounter />
 					</Box>
 				</Box>
@@ -150,4 +143,3 @@ const Game = () => {
 		</Box>
 	);
 };
-export default Game;

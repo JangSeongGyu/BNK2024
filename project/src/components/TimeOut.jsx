@@ -7,7 +7,7 @@ const TimeOut = () => {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setTimer((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
-		}, 100);
+		}, 1000);
 
 		return () => clearInterval(interval);
 	}, []);
@@ -21,8 +21,8 @@ const TimeOut = () => {
 	}, [timer]);
 
 	return (
-		<Box sx={{ position: 'absolute', top: 0, left: 0 }}>
-			<Typography sx={{ ...designOption, fontSize: 2 + (60 - timer) * 0.6 }}>{timer}</Typography>
+		<Box sx={{ position: 'absolute', top: 20, left: 35, zIndex: 100 }}>
+			<Typography sx={{ ...designOption, fontSize: 24 + (60 - timer) * 0.6 }}>{timer}</Typography>
 		</Box>
 	);
 };

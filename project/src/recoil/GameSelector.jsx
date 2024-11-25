@@ -18,9 +18,9 @@ export const CurrentState = selector({
 			'timeout3',
 			'attack3',
 			'out1',
-			'newMonster',
 			// New
 			'move',
+			'newMonster',
 			'in2',
 			'text4',
 			'timeout4',
@@ -63,6 +63,15 @@ export const MonsterAnimationState = selector({
 			case 'attack3': {
 				return 'dying 4s linear';
 			}
+			case 'attack4': {
+				return 'attack 1s linear';
+			}
+			case 'attack5': {
+				return 'attack 1s linear';
+			}
+			case 'attack6': {
+				return 'dying 4s linear';
+			}
 		}
 	},
 	set: ({ reset }) => {},
@@ -73,12 +82,11 @@ export const MonsterDisplayState = selector({
 	get: ({ get }) => {
 		const current = get(CurrentState);
 		switch (current) {
+			case 'move':
 			case 'out1': {
 				return 'none';
 			}
-			case 'move': {
-				return 'none';
-			}
+
 			default: {
 				return 'block';
 			}
@@ -99,6 +107,15 @@ export const AttackAnimationState = selector({
 				return true;
 			}
 			case 'attack3': {
+				return true;
+			}
+			case 'attack4': {
+				return true;
+			}
+			case 'attack5': {
+				return true;
+			}
+			case 'attack6': {
 				return true;
 			}
 			default: {
@@ -184,6 +201,37 @@ export const GameTextState = selector({
 			}
 			default: {
 				return '';
+			}
+		}
+	},
+	set: ({ reset }) => {},
+});
+
+export const SelectorTextState = selector({
+	key: 'SelectorTextState',
+	get: ({ get }) => {
+		const current = get(CurrentState);
+		switch (current) {
+			case 'in1': {
+				return { A: 'A', B: 'B', C: 'C', D: 'D' };
+			}
+			case 'text1':
+			case 'timeout1':
+			case 'attack1': {
+				return { A: '問題1ーA', B: '問題1ーB', C: '問題1ーC', D: '問題1ーD' };
+			}
+			case 'text2':
+			case 'timeout2':
+			case 'attack2': {
+				return { A: '問題2ーA', B: '問題2ーB', C: '問題2ーC', D: '問題2ーD' };
+			}
+			case 'text3':
+			case 'timeout3':
+			case 'attack3': {
+				return { A: '問題3ーA', B: '問題3ーB', C: '問題3ーC', D: '問題3ーD' };
+			}
+			default: {
+				return { A: 'A', B: 'B', C: 'C', D: 'D' };
 			}
 		}
 	},

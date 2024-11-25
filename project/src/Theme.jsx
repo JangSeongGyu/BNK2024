@@ -11,7 +11,7 @@ const Theme = createTheme({
 	},
 	palette: {
 		border: {
-			main: 'rgba(255,255,255,0.5)',
+			main: 'rgba(255,255,255,0.9)',
 			size: 6,
 		},
 	},

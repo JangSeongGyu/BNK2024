@@ -1,18 +1,20 @@
 import { Box, Typography } from '@mui/material';
 import { AlignCenter, HorizonAlignCenter } from '../GeneralBoxOption';
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { SelectorTextState } from '../recoil/GameSelector';
 
 const GameLeftText = () => {
 	const [selected, setSelected] = useState(0);
-	const titles = ['A 10回以下', 'B 30回以下', 'C 50回以下', 'D 50回以上'];
+	const select = useRecoilValue(SelectorTextState);
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setSelected((prev) => (prev + 1) % titles.length); // Update to use titles.length
+			setSelected((prev) => (prev + 1) % Object.keys(select).length); // Update to use titles.length
 		}, 5000);
 		return () => clearInterval(interval);
-	}, [titles.length]);
+	}, [select.length]);
 
-	const SelectButton = ({ title, index }) => {
+	const SelectButton = ({ key, text, index }) => {
 		return (
 			<Typography
 				onClick={() => {}}
@@ -31,7 +33,7 @@ const GameLeftText = () => {
 				}}
 				key={index}
 			>
-				{title}
+				{text}
 			</Typography>
 		);
 	};
@@ -51,8 +53,8 @@ const GameLeftText = () => {
 				zIndex: 100,
 			}}
 		>
-			{titles.map((title, index) => (
-				<SelectButton title={title} index={index} />
+			{Object.keys(select).map((key, index) => (
+				<SelectButton key={key} text={select[key]} index={index} />
 			))}
 		</Box>
 	);

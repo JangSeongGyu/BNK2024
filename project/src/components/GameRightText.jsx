@@ -30,12 +30,12 @@ const GameRightText = () => {
 					whiteSpace: '', // Preserve line breaks if needed
 				}}
 			>
-				{/* モンスタの名前 */}
+				モンスタの名前
 			</Typography>
 			<Typography
 				sx={{
-					fontSize: 10,
-					// color: 'white',
+					fontSize: 40,
+					color: 'white',
 					textWrap: 'wrap',
 					whiteSpace: '', // Preserve line breaks if needed
 				}}
