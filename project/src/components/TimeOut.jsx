@@ -21,7 +21,7 @@ const TimeOut = () => {
 	}, [timer]);
 
 	return (
-		<Box sx={{ position: 'absolute', top: 20, left: 35, zIndex: 100 }}>
+		<Box sx={{ position: 'absolute', top: 35, left: 35, zIndex: 100 }}>
 			<Typography sx={{ ...designOption, fontSize: 24 + (60 - timer) * 0.6 }}>{timer}</Typography>
 		</Box>
 	);

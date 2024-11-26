@@ -1,6 +1,8 @@
 export const TextData = (stage) => {
 	console.log(stage);
-	if (stage == 1) {
+	if (stage == 0) {
+		return '練習問題！';
+	} else if (stage == 1) {
 		return '問題1';
 	} else if (stage == 2) {
 		return '問題2';

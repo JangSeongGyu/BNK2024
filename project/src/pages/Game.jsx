@@ -1,15 +1,7 @@
 import { Box, Typography } from '@mui/material';
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
-import GameMainText from '../components/GameRightText';
 
-import game_bg from '../../images/gamebg.jpg';
-import game_bg2 from '../../images/gamebg2.png';
 import { AlignCenter } from '../GeneralBoxOption';
 import GameBg from '../components/GameBg';
-import Stage1 from '../../images/stage1.png';
-import Stage2 from '../../images/bg.gif';
-import bg from '../../images/stage1.png';
-import attack from '../../images/attack.gif';
 import GameLeftText from '../components/GameLeftText';
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
@@ -27,13 +19,22 @@ import {
 import { CurrentIndexState, HpState } from '../recoil/GameAtom';
 import TimeOut from '../components/TimeOut';
 import Sound from '../components/Sound';
+//
+import Stage0 from '../../images/slime.png';
+import Stage1 from '../../images/stage1.png';
+import Stage2 from '../../images/demon.png';
+import Stage3 from '../../images/ryuou.png';
+//
+import game_bg0 from '../../images/gamebg0.jpg';
+import game_bg1 from '../../images/gamebg1.png';
+import attack from '../../images/attack.gif';
 
 const Game = () => {
 	const [stage, setStage] = useState(0);
 	const [hp, setHp] = useRecoilState(HpState);
 	const [currentIndex, setCurrentIndex] = useRecoilState(CurrentIndexState);
-	const [bgImage, setBgImage] = useState(game_bg);
-	const [monsterImage, setMonsterImage] = useState('Stage1');
+	const [bgImage, setBgImage] = useState(game_bg0);
+	const [monsterImage, setMonsterImage] = useState(Stage0);
 	const current = useRecoilValue(CurrentState);
 	const bgAnimation = useRecoilValue(BgAnimationState);
 	const monsterDisplay = useRecoilValue(MonsterDisplayState);
@@ -42,24 +43,45 @@ const Game = () => {
 	const attackAnimation = useRecoilValue(AttackAnimationState);
 
 	useEffect(() => {
-		if (current === 'text1') {
-			setStage(1);
-		} else if (current === 'attack1') {
-			setHp(hp - 33);
+		if (current === 'text0') {
 			setStage(0);
+		} else if (current === 'text1') {
+			setStage(1);
 		} else if (current === 'text2') {
 			setStage(2);
-		} else if (current === 'attack2') {
-			setHp(hp - 33);
-			setStage(0);
 		} else if (current === 'text3') {
 			setStage(3);
+			//
+		} else if (current === 'attack0') {
+			setHp(0);
+			setStage(-1);
+		} else if (current === 'attack1') {
+			setHp(67);
+			setStage(-1);
+		} else if (current === 'attack2') {
+			setHp(30);
+			setStage(-1);
 		} else if (current === 'attack3') {
-			setHp(hp - 34);
-			setStage(0);
-		} else if (current === 'newMonster') {
+			setHp(0);
+			setStage(-1);
+		} else if (current === 'attack4') {
+			setHp(67);
+			setStage(-1);
+		} else if (current === 'attack5') {
+			setHp(30);
+			setStage(-1);
+		} else if (current === 'attack6') {
+			setHp(0);
+			setStage(-1);
+		}
+		//
+		else if (current === 'newMonster1') {
 			setHp(100);
-			setBgImage(game_bg2);
+			setBgImage(game_bg1);
+			setMonsterImage(Stage1);
+		} else if (current === 'newMonster2') {
+			setHp(100);
+			setBgImage(game_bg1);
 			setMonsterImage(Stage2);
 		}
 	}, [current]);
@@ -99,58 +121,66 @@ const Game = () => {
 	}, [attackAnimation]);
 
 	return (
-		<Box
-			onClick={currentChange}
-			sx={{
-				display: 'flex',
-				flexDirection: 'column',
-				width: '100%',
-				height: '100%',
-				bgcolor: 'white',
-				userSelect: 'none',
-			}}
-		>
-			{/* <Typography>{current}</Typography> */}
-			{timerDisplay && <TimeOut />}
+		<Box sx={{ display: 'flex', width: '100%', height: '100%' }}>
+			<Box
+				onClick={currentChange}
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					width: '100%',
+					height: '100%',
+					bgcolor: 'white',
+					userSelect: 'none',
+					bgcolor: 'black',
+				}}
+			>
+				{/* <Typography sx={{ color: 'white' }}>{current}</Typography> */}
+				{timerDisplay && <TimeOut />}
 
-			<Box sx={{ ...AlignCenter, position: 'relative', width: '100%', height: '60%', py: 2, px: 2 }}>
-				{/* <GameBg bgAnimation={bgAnimation} bgImage={bgImage} /> */}
-				<Box
-					sx={{
-						...AlignCenter,
-						position: 'absolute',
-						top: 0,
-						left: 0,
-						width: '100%',
-						height: '100%',
-						zIndex: 100,
-					}}
-				>
-					<Box sx={{ ...AlignCenter, position: 'relative', flexDirection: 'column', gap: 1 }}>
-						{/* モンスター */}
-						<Box
-							sx={{
-								display: monsterDisplay,
-								width: 400,
-								// height: 10,
-								// bgcolor: 'grey',
-								animation: monsterAnimation,
-							}}
-							onAnimationEnd={handleAnimationEnd}
-							component={'img'}
-							src={monsterImage}
-						/>
+				<Box sx={{ ...AlignCenter, position: 'relative', width: '100%', height: '60%', py: 2, px: 2 }}>
+					<GameBg bgAnimation={bgAnimation} bgImage={bgImage} />
+					<Box
+						sx={{
+							...AlignCenter,
+							position: 'absolute',
+							top: 0,
+							left: 0,
+							width: '100%',
+							height: '100%',
+							zIndex: 100,
+						}}
+					>
+						<Box sx={{ ...AlignCenter, position: 'relative', flexDirection: 'column', gap: 1 }}>
+							{/* モンスター */}
+							<Box
+								sx={{
+									display: monsterDisplay,
+									width: 400,
+									// height: 10,
+									// bgcolor: 'grey',
+									animation: monsterAnimation,
+								}}
+								onAnimationEnd={handleAnimationEnd}
+								component={'img'}
+								src={monsterImage}
+							/>
 
-						{/* <Attack /> */}
-						{/* <HpCounter /> */}
+							<Attack />
+							<HpCounter />
+						</Box>
 					</Box>
 				</Box>
+				<Box sx={{ ...AlignCenter, width: '100%', height: '40%', pb: 2, px: 2, gap: 2 }}>
+					<GameLeftText />
+					<GameRightText />
+				</Box>
+				<Sound />
 			</Box>
-			<Box sx={{ ...AlignCenter, width: '100%', height: '40%', pb: 2, px: 2, gap: 2 }}>
-				{/* <GameLeftText />
-				<GameRightText /> */}
+			<Box sx={{ minWidth: '20%', height: '100%', py: 2, pr: 2, bgcolor: 'black' }}>
+				<Box
+					sx={{ width: '100%', height: '100%', borderRadius: 2, border: 4, borderColor: 'border.main' }}
+				></Box>
 			</Box>
-			<Sound />
 		</Box>
 	);
 };

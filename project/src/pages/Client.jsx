@@ -1,7 +1,5 @@
-import { BorderColor } from '@mui/icons-material';
 import { Box, Typography } from '@mui/material';
 import { AlignCenter } from '../GeneralBoxOption';
-import ClientBox from '../../images/ClientBox.png';
 import { useEffect, useState } from 'react';
 import OnLive from '../components/OnLive';
 import axios from 'axios';
@@ -40,22 +38,22 @@ const Client = () => {
 		};
 	}, []);
 
-	useEffect(()=>{
-		setAnswer("")
-	},[stage])
+	useEffect(() => {
+		setAnswer('');
+	}, [stage]);
 
 	const ButtonClick = (title) => {
-		if(stage==0){
-			toast.success(`準備中です！`)	
+		if (stage == 0) {
+			toast.success(`準備中です！`);
 		}
 		setAnswer(title);
 		axios.post(`/answer`, { id: 0, answer: title }).then((res) => {
-			toast.success(`「${title}」提出完了！`)
+			toast.success(`「${title}」提出完了！`);
 		});
 	};
 
 	const SelectButton = ({ title }) => {
-		const check = title == answer
+		const check = title == answer;
 		if (check) {
 			return (
 				<Box
@@ -70,7 +68,7 @@ const Client = () => {
 				>
 					<Typography sx={{ fontSize: 80, color: 'white', pb: 2, userSelect: 'none' }}>{title}</Typography>
 				</Box>
-			)
+			);
 		}
 		return (
 			<Box
@@ -92,7 +90,7 @@ const Client = () => {
 	};
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', bgcolor: 'black' }}>
-			<Box sx={{ display: 'flex', justifyContent: 'space-between', p: 1 ,minHeight:20}}>
+			<Box sx={{ display: 'flex', justifyContent: 'space-between', p: 1, minHeight: 20 }}>
 				<Typography sx={{ color: 'white', fontSize: 20 }}>STAGE{stage}</Typography>
 				<OnLive live={live} />
 			</Box>
@@ -105,11 +103,11 @@ const Client = () => {
 					pt: 2,
 					px: 2,
 					pb: 2,
-					borderColor:"border.main"
+					borderColor: 'border.main',
 				}}
 			>
-				<Box sx={{ width: '100%',mb:2,}}>
-					<Typography sx={{ fontSize: 18, color: 'white', border: 1,borderColor:"border.main", p: 1 }}>
+				<Box sx={{ width: '100%', mb: 2 }}>
+					<Typography sx={{ fontSize: 18, color: 'white', border: 1, borderColor: 'border.main', p: 1 }}>
 						ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題
 					</Typography>
 				</Box>
