@@ -7,6 +7,8 @@ import game_bg2 from '../../images/gamebg2.png';
 import { AlignCenter } from '../GeneralBoxOption';
 import GameBg from '../components/GameBg';
 import Stage1 from '../../images/stage1.png';
+import Stage2 from '../../images/bg.gif';
+import bg from '../../images/stage1.png';
 import attack from '../../images/attack.gif';
 import GameLeftText from '../components/GameLeftText';
 import { useCallback, useEffect, useState } from 'react';
@@ -31,6 +33,7 @@ const Game = () => {
 	const [hp, setHp] = useRecoilState(HpState);
 	const [currentIndex, setCurrentIndex] = useRecoilState(CurrentIndexState);
 	const [bgImage, setBgImage] = useState(game_bg);
+	const [monsterImage, setMonsterImage] = useState('Stage1');
 	const current = useRecoilValue(CurrentState);
 	const bgAnimation = useRecoilValue(BgAnimationState);
 	const monsterDisplay = useRecoilValue(MonsterDisplayState);
@@ -57,6 +60,7 @@ const Game = () => {
 		} else if (current === 'newMonster') {
 			setHp(100);
 			setBgImage(game_bg2);
+			setMonsterImage(Stage2);
 		}
 	}, [current]);
 
@@ -102,7 +106,7 @@ const Game = () => {
 				flexDirection: 'column',
 				width: '100%',
 				height: '100%',
-				bgcolor: 'black',
+				bgcolor: 'white',
 				userSelect: 'none',
 			}}
 		>
@@ -110,7 +114,7 @@ const Game = () => {
 			{timerDisplay && <TimeOut />}
 
 			<Box sx={{ ...AlignCenter, position: 'relative', width: '100%', height: '60%', py: 2, px: 2 }}>
-				<GameBg bgAnimation={bgAnimation} bgImage={bgImage} />
+				{/* <GameBg bgAnimation={bgAnimation} bgImage={bgImage} /> */}
 				<Box
 					sx={{
 						...AlignCenter,
@@ -134,17 +138,17 @@ const Game = () => {
 							}}
 							onAnimationEnd={handleAnimationEnd}
 							component={'img'}
-							src={Stage1}
+							src={monsterImage}
 						/>
 
-						<Attack />
-						<HpCounter />
+						{/* <Attack /> */}
+						{/* <HpCounter /> */}
 					</Box>
 				</Box>
 			</Box>
 			<Box sx={{ ...AlignCenter, width: '100%', height: '40%', pb: 2, px: 2, gap: 2 }}>
-				<GameLeftText />
-				<GameRightText />
+				{/* <GameLeftText />
+				<GameRightText /> */}
 			</Box>
 			<Sound />
 		</Box>
