@@ -28,9 +28,11 @@ import Stage3 from '../../images/ryuou.png';
 import game_bg0 from '../../images/gamebg0.jpg';
 import game_bg1 from '../../images/gamebg1.png';
 import attack from '../../images/attack.gif';
+import attack2 from '../../images/attack2.gif';
+import Subject from '../components/Subject';
 
 const Game = () => {
-	const [stage, setStage] = useState(0);
+	const [stage, setStage] = useState(-1);
 	const [hp, setHp] = useRecoilState(HpState);
 	const [currentIndex, setCurrentIndex] = useRecoilState(CurrentIndexState);
 	const [bgImage, setBgImage] = useState(game_bg0);
@@ -41,6 +43,7 @@ const Game = () => {
 	const timerDisplay = useRecoilValue(TimerDisplayState);
 	const monsterAnimation = useRecoilValue(MonsterAnimationState);
 	const attackAnimation = useRecoilValue(AttackAnimationState);
+	const [showAttack, setShowAttack] = useState(false);
 
 	useEffect(() => {
 		if (current === 'text0') {
@@ -51,6 +54,15 @@ const Game = () => {
 			setStage(2);
 		} else if (current === 'text3') {
 			setStage(3);
+			//
+		} else if (current === 'text4') {
+			setStage(4);
+			//
+		} else if (current === 'text5') {
+			setStage(5);
+			//
+		} else if (current === 'text6') {
+			setStage(6);
 			//
 		} else if (current === 'attack0') {
 			setHp(0);
@@ -83,11 +95,18 @@ const Game = () => {
 			setHp(100);
 			setBgImage(game_bg1);
 			setMonsterImage(Stage2);
+		} else if (current === 'newMonster3') {
+			setHp(100);
+			setBgImage(game_bg1);
+			setMonsterImage(Stage3);
 		}
 	}, [current]);
 
 	useEffect(() => {
-		axios.post('/stage', { stage: stage });
+		let count = 0;
+		if (stage >= 1) count = 4;
+		else if (stage >= 4) count = 3;
+		axios.post('/stage', { stage: stage, count: count });
 	}, [stage]);
 
 	const handleAnimationEnd = (e) => {
@@ -100,25 +119,36 @@ const Game = () => {
 		setCurrentIndex(currentIndex + 1);
 	};
 
-	const Attack = useCallback(() => {
+	useEffect(() => {
 		if (attackAnimation) {
+			setShowAttack(true);
+			const timer = setTimeout(() => {
+				setShowAttack(false);
+			}, 800);
+			return () => clearTimeout(timer);
+		}
+	}, [attackAnimation, current]);
+
+	const Attack = useCallback(() => {
+		if (showAttack) {
 			return (
 				<Box
 					sx={{
-						width: 300,
+						width: 400,
+						height: 400,
 						position: 'absolute',
 						top: 0,
 						left: 0,
-						zIndex: 100,
+						zIndex: 1000,
 					}}
 					component={'img'}
-					src={attack}
+					src={attack2}
 				/>
 			);
 		} else {
 			return <></>;
 		}
-	}, [attackAnimation]);
+	}, [attackAnimation, showAttack]);
 
 	return (
 		<Box sx={{ display: 'flex', width: '100%', height: '100%' }}>
@@ -137,8 +167,9 @@ const Game = () => {
 				{/* <Typography sx={{ color: 'white' }}>{current}</Typography> */}
 				{timerDisplay && <TimeOut />}
 
-				<Box sx={{ ...AlignCenter, position: 'relative', width: '100%', height: '60%', py: 2, px: 2 }}>
+				<Box sx={{ ...AlignCenter, position: 'relative', width: '100%', height: '70%', py: 2, px: 2 }}>
 					<GameBg bgAnimation={bgAnimation} bgImage={bgImage} />
+					<Subject />
 					<Box
 						sx={{
 							...AlignCenter,
@@ -147,10 +178,12 @@ const Game = () => {
 							left: 0,
 							width: '100%',
 							height: '100%',
-							zIndex: 100,
+							zIndex: 10,
 						}}
 					>
-						<Box sx={{ ...AlignCenter, position: 'relative', flexDirection: 'column', gap: 1 }}>
+						<Box
+							sx={{ ...AlignCenter, position: 'relative', flexDirection: 'column', gap: 1, zIndex: 100 }}
+						>
 							{/* モンスター */}
 							<Box
 								sx={{
@@ -170,16 +203,11 @@ const Game = () => {
 						</Box>
 					</Box>
 				</Box>
-				<Box sx={{ ...AlignCenter, width: '100%', height: '40%', pb: 2, px: 2, gap: 2 }}>
-					<GameLeftText />
+				<Box sx={{ ...AlignCenter, width: '100%', height: '30%', pb: 2, px: 2, gap: 2 }}>
 					<GameRightText />
+					<GameLeftText />
 				</Box>
 				<Sound />
-			</Box>
-			<Box sx={{ minWidth: '20%', height: '100%', py: 2, pr: 2, bgcolor: 'black' }}>
-				<Box
-					sx={{ width: '100%', height: '100%', borderRadius: 2, border: 4, borderColor: 'border.main' }}
-				></Box>
 			</Box>
 		</Box>
 	);

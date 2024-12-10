@@ -19,11 +19,13 @@ const GameLeftText = () => {
 			<Typography
 				onClick={() => {}}
 				sx={{
-					width: '100%',
+					width: '50%',
 					color: selected === index ? 'black' : 'white',
-					fontSize: 40,
+					fontSize: 44,
+					borderRadius: 1,
 					transition: 'all .5s',
 					pl: 2,
+
 					animation: selected === index ? 'shimmer 3s infinite' : 'fadeIn 10s ease-in-out infinite',
 					'@keyframes shimmer': {
 						'0%': { bgcolor: 'white', opacity: 0.6 },
@@ -42,13 +44,14 @@ const GameLeftText = () => {
 		<Box
 			sx={{
 				...HorizonAlignCenter,
-				flexDirection: 'column',
-				width: '30%',
+				// flexDirection: 'column',
+				flexFlow: 'wrap',
+				width: '100%',
 				height: '100%',
 				bgcolor: 'rgba(0,0,0,0.85)',
 				border: 6,
 				borderRadius: 2,
-				px: 1,
+				p: 1,
 				borderColor: 'border.main',
 				zIndex: 100,
 			}}

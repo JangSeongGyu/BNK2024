@@ -25,7 +25,7 @@ const GameRightText = () => {
 		>
 			<Typography
 				sx={{
-					fontSize: 40,
+					fontSize: 44,
 					color: 'white',
 					textWrap: 'wrap',
 					whiteSpace: '', // Preserve line breaks if needed
@@ -35,7 +35,7 @@ const GameRightText = () => {
 			</Typography>
 			<Typography
 				sx={{
-					fontSize: 40,
+					fontSize: 44,
 					color: 'white',
 					textWrap: 'wrap',
 					whiteSpace: 'pre-wrap', // Preserve line breaks if needed

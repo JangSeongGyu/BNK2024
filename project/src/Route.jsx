@@ -13,7 +13,7 @@ const Router = () => {
 				<CssBaseline />
 				<Routes>
 					<Route path={`/game`} element={<Game />} />
-					<Route path={`/client`} element={<Client />} />
+					<Route path={`/client/:client_id`} element={<Client />} />
 					<Route path={`/*`} element={<Intro />} />
 				</Routes>
 			</ThemeProvider>

@@ -1,12 +1,13 @@
 import { selector } from 'recoil';
 import { CurrentIndexState, HpState } from './GameAtom';
-import { TextData } from '../components/TextData';
+import { SelectData, TextData } from '../components/TextData';
 
 export const CurrentState = selector({
 	key: 'CurrentState',
 	get: ({ get }) => {
 		const currentList = [
-			'exp1',
+			'move',
+			'exp0',
 			// 練習
 			'in0',
 			'text0',
@@ -157,22 +158,25 @@ export const GameTextState = selector({
 		const current = get(CurrentState);
 		switch (current) {
 			case 'in0': {
-				return '練習モンスターが現れた！！';
+				return 'スライムが現れた！！';
 			}
 			case 'exp0': {
-				return '練習問題内容！';
+				return '始まりの草原';
 			}
 			case 'text0':
 			case 'timeout0': {
 				return TextData(0);
 			}
 			case 'attack0': {
-				return '答えは「B」だ！！';
+				return '答えは「A」だ！！';
 			}
 			case 'out0': {
 				return `練習モンスターを やっつけた！\nけいけんち ０ポイントをかくとく！`;
 			}
 			//
+			case 'newmonster1': {
+				return '練習問題説明！！';
+			}
 			case 'in1': {
 				return '4択モンスターが現れた！';
 			}
@@ -199,9 +203,11 @@ export const GameTextState = selector({
 				return '答えは「A」だ！';
 			}
 			case 'out1': {
-				return '4択モンスターを倒した！';
+				return `練習モンスターを やっつけた！\nけいけんち ０ポイントをかくとく！`;
 			}
-
+			case 'in1': {
+				return '格付けモンスターが現れた！';
+			}
 			case 'text4':
 			case 'timeout4': {
 				return TextData(4);
@@ -209,6 +215,7 @@ export const GameTextState = selector({
 			case 'attack4': {
 				return '答えは「A」だ！';
 			}
+
 			case 'text5':
 			case 'timeout5': {
 				return TextData(5);
@@ -241,7 +248,7 @@ export const GameNameState = selector({
 		switch (current) {
 			case 'text0':
 			case 'timeout0': {
-				return '練習モンスター';
+				return '';
 			}
 			case 'text1':
 			case 'timeout1': {
@@ -283,7 +290,7 @@ export const SelectorTextState = selector({
 			case 'text0':
 			case 'timeout0':
 			case 'attack0': {
-				return { A: '問題0ーA', B: '問題0ーB', C: '問題0ーC', D: '問題0ーD' };
+				return SelectData(0);
 			}
 			case 'text1':
 			case 'timeout1':

@@ -1,33 +1,41 @@
 import { Box, Typography } from '@mui/material';
 import { AlignCenter } from '../GeneralBoxOption';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import OnLive from '../components/OnLive';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import ClientSlide from '../components/ClientSlide';
+import { useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { GameTextState } from '../recoil/GameSelector';
+import { SelectData, TextData } from '../components/TextData';
 
 const Client = () => {
 	const [answer, setAnswer] = useState(null);
 	const [live, setLive] = useState(false);
-	const [stage, setStage] = useState(0);
+	const [stage, setStage] = useState(-1);
+	const [selectCount, setSelectCount] = useState(0);
+	const { client_id } = useParams();
+
+	const gameText = useMemo(() => {
+		return TextData(stage);
+	}, [stage]);
+
+	const SelectText = useCallback(() => {
+		const data = SelectData(stage);
+		return Object.keys(data).map((key) => {
+			return <Typography sx={{ fontSize: 18, color: 'white' }}>{data[key]}</Typography>;
+		});
+	}, [stage]);
 
 	useEffect(() => {
-		axios
-			.get(`/stage`)
-			.then((res) => {
-				setLive(true);
-				setStage(res.data);
-			})
-			.catch(() => {
-				setLive(false);
-			});
-
 		setInterval(() => {
 			axios
 				.get(`/stage`)
 				.then((res) => {
 					setLive(true);
-					setStage(res.data);
-					console.log(res.data);
+					setStage(res.data[0]);
+					setSelectCount(res.data[1]);
 				})
 				.catch(() => {
 					setLive(false);
@@ -43,13 +51,19 @@ const Client = () => {
 	}, [stage]);
 
 	const ButtonClick = (title) => {
-		if (stage == 0) {
-			toast.success(`準備中です！`);
+		if (stage == -1) {
+			toast.error(`入力出来ません。`);
+			return;
 		}
 		setAnswer(title);
-		axios.post(`/answer`, { id: 0, answer: title }).then((res) => {
-			toast.success(`「${title}」提出完了！`);
-		});
+		axios
+			.post(`/answer`, { id: client_id, answer: title })
+			.then((res) => {
+				toast.success(`「${title}」提出完了！`);
+			})
+			.catch((err) => {
+				toast.error(`「${title}」提出失敗！`);
+			});
 	};
 
 	const SelectButton = ({ title }) => {
@@ -90,8 +104,11 @@ const Client = () => {
 	};
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', bgcolor: 'black' }}>
+			<ClientSlide stage={stage} client_id={client_id} />
 			<Box sx={{ display: 'flex', justifyContent: 'space-between', p: 1, minHeight: 20 }}>
-				<Typography sx={{ color: 'white', fontSize: 20 }}>STAGE{stage}</Typography>
+				<Typography sx={{ color: 'white', fontSize: 20 }}>
+					{stage == -1 ? '行動不可' : 'STAGE' + stage}
+				</Typography>
 				<OnLive live={live} />
 			</Box>
 			<Box
@@ -108,7 +125,7 @@ const Client = () => {
 			>
 				<Box sx={{ width: '100%', mb: 2 }}>
 					<Typography sx={{ fontSize: 18, color: 'white', border: 1, borderColor: 'border.main', p: 1 }}>
-						ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題ここに問題
+						{gameText}
 					</Typography>
 				</Box>
 				<Box
@@ -119,10 +136,7 @@ const Client = () => {
 						height: '100%',
 					}}
 				>
-					<Typography sx={{ fontSize: 18, color: 'white' }}>A : 答えA</Typography>
-					<Typography sx={{ fontSize: 18, color: 'white' }}>B : 答えB</Typography>
-					<Typography sx={{ fontSize: 18, color: 'white' }}>C : 答えC</Typography>
-					<Typography sx={{ fontSize: 18, color: 'white' }}>D : 答えD</Typography>
+					<SelectText />
 				</Box>
 			</Box>
 			<Box

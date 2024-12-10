@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 
 const SlideText = ({ text, speed }) => {
 	const [displayedText, setDisplayedText] = useState('');
-
 	useEffect(() => {
 		console.log('display', displayedText);
 	}, [displayedText]);

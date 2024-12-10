@@ -11,12 +11,12 @@ const Intro = () => {
 		return (
 			<Typography
 				onClick={() => {
-					navigate('/game/1');
+					navigate('/game');
 				}}
 				sx={{
 					width: '100%',
 					color: 'white',
-					fontSize: 28,
+					fontSize: 30,
 					transition: 'all .5s',
 					':hover': { bgcolor: 'white', color: 'black', userSelect: 'none' },
 				}}
@@ -33,7 +33,7 @@ const Intro = () => {
 				width: '100%',
 				height: '100%',
 				bgcolor: 'black',
-				position: 'relative', // Make this container relative for absolute positioning of circles
+				position: 'relative',
 				p: 10,
 			}}
 		>
@@ -46,7 +46,7 @@ const Intro = () => {
 					backgroundSize: '50%',
 					backgroundRepeat: 'repeat',
 					backgroundImage: `url(${bg2})`,
-					animation: `main 10s linear infinite`,
+					animation: `main 8s linear infinite`,
 					'@keyframes main': {
 						'0%': {
 							opacity: 0.2,
@@ -78,14 +78,14 @@ const Intro = () => {
 				}}
 			>
 				<Box>
-					<Typography sx={{ width: '100%', textAlign: 'center', color: 'white', fontSize: 80 }}>
+					<Typography sx={{ width: '100%', textAlign: 'center', color: 'white', fontSize: 90 }}>
 						2024 MIC 忘年会
 					</Typography>
-					<Typography sx={{ width: '100%', textAlign: 'center', color: 'white', fontSize: 32 }}>
+					<Typography sx={{ width: '100%', textAlign: 'center', color: 'white', fontSize: 40 }}>
 						- ミズカミクエスト -
 					</Typography>
 				</Box>
-				<Box sx={{ display: 'flex', flexDirection: 'column', pl: 4, width: 250 }}>
+				<Box sx={{ display: 'flex', flexDirection: 'column', pl: 4, width: 300 }}>
 					<MenuButton title="● New Game" />
 					<MenuButton title="○ Loading Game" />
 					<MenuButton title="○ Setting" />
