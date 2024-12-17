@@ -3,9 +3,9 @@ export const TextData = (stage) => {
 	if (stage == 0) {
 		return '赤で印をつけたモンスターの名前は？';
 	} else if (stage == 1) {
-		return '問題1';
+		return 'この写真の中で【クエ】はどれですか？';
 	} else if (stage == 2) {
-		return '問題2';
+		return '次の４つのうち、MICと同い年のものはどれしょう？';
 	} else if (stage == 3) {
 		return '問題3';
 	} else if (stage == 4) {
@@ -22,7 +22,7 @@ export const SelectData = (stage) => {
 	if (stage == 0) {
 		return { A: 'A:ファンファン', B: 'B:ドムドム', C: 'C:ウォンビン', D: 'D:ルーガン' };
 	} else if (stage == 1) {
-		return { A: '問題1ーA', B: '問題1ーB', C: '問題1ーC', D: '問題1ーD' };
+		return { A: '「A」がクエだ！', B: '「B」がクエだ！', C: '「C」がクエだ！', D: '「D」がクエだ！' };
 	} else if (stage == 2) {
 		return { A: '問題2ーA', B: '問題2ーB', C: '問題2ーC', D: '問題2ーD' };
 	} else if (stage == 3) {

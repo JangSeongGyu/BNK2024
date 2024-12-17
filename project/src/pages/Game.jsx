@@ -169,7 +169,7 @@ const Game = () => {
 
 				<Box sx={{ ...AlignCenter, position: 'relative', width: '100%', height: '70%', py: 2, px: 2 }}>
 					<GameBg bgAnimation={bgAnimation} bgImage={bgImage} />
-					<Subject />
+					<Subject stage={stage} type={'game'} />
 					<Box
 						sx={{
 							...AlignCenter,

@@ -10,7 +10,6 @@ const GameBg = ({ bgAnimation, bgImage }) => {
 			setCurrentIndex((prev) => prev + 1);
 		}
 	};
-	console.log(bgAnimation);
 
 	return (
 		<Box

@@ -9,6 +9,8 @@ import { useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { GameTextState } from '../recoil/GameSelector';
 import { SelectData, TextData } from '../components/TextData';
+import Subject from '../components/Subject';
+import SubjectClient from '../components/SubjectClient';
 
 const Client = () => {
 	const [answer, setAnswer] = useState(null);
@@ -40,7 +42,7 @@ const Client = () => {
 				.catch(() => {
 					setLive(false);
 				});
-		}, 1000);
+		}, 100);
 		return () => {
 			clearInterval();
 		};
@@ -103,19 +105,27 @@ const Client = () => {
 		);
 	};
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', bgcolor: 'black' }}>
+		<Box
+			sx={{
+				display: 'flex',
+				flexDirection: 'column',
+				width: '100%',
+				height: '100%',
+				bgcolor: 'black',
+			}}
+		>
 			<ClientSlide stage={stage} client_id={client_id} />
-			<Box sx={{ display: 'flex', justifyContent: 'space-between', p: 1, minHeight: 20 }}>
+			{/* <Box sx={{ display: 'flex', justifyContent: 'space-between', p: 1 }}>
 				<Typography sx={{ color: 'white', fontSize: 20 }}>
 					{stage == -1 ? '行動不可' : 'STAGE' + stage}
 				</Typography>
 				<OnLive live={live} />
-			</Box>
+			</Box> */}
 			<Box
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',
-					height: '50%',
+					height: '100%',
 					width: '100%',
 					pt: 2,
 					px: 2,
@@ -128,21 +138,12 @@ const Client = () => {
 						{gameText}
 					</Typography>
 				</Box>
-				<Box
-					sx={{
-						display: 'flex',
-						flexDirection: 'column',
-						width: '100%',
-						height: '100%',
-					}}
-				>
-					<SelectText />
-				</Box>
+				<SubjectClient stage={stage} />
+
+				<SelectText />
 			</Box>
-			<Box
-				sx={{ display: 'flex', flexDirection: 'column', height: '50%', gap: 2, boxSizing: 'border-box', p: 2 }}
-			>
-				<Box sx={{ display: 'flex', width: '100%', height: '100%', gap: 2 }}>
+			<Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, boxSizing: 'border-box', p: 2 }}>
+				<Box sx={{ display: 'flex', width: '100%', gap: 2 }}>
 					<SelectButton title={'A'} />
 					<SelectButton title={'B'} />
 				</Box>
