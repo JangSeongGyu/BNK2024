@@ -23,7 +23,7 @@ const GameRightText = () => {
 				py: 1,
 			}}
 		>
-			<Typography
+			{/* <Typography
 				sx={{
 					fontSize: 44,
 					color: 'white',
@@ -32,7 +32,7 @@ const GameRightText = () => {
 				}}
 			>
 				{name}
-			</Typography>
+			</Typography> */}
 			<Typography
 				sx={{
 					fontSize: 44,

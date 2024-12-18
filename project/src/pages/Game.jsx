@@ -22,14 +22,17 @@ import Sound from '../components/Sound';
 //
 import Stage0 from '../../images/slime.png';
 import Stage1 from '../../images/stage1.png';
-import Stage2 from '../../images/demon.png';
+import Stage2 from '../../images/kingslime.png';
 import Stage3 from '../../images/ryuou.png';
 //
 import game_bg0 from '../../images/gamebg0.jpg';
 import game_bg1 from '../../images/gamebg1.png';
+import game_bg2 from '../../images/gamebg2.png';
+import game_bg3 from '../../images/gamebg3.png';
 import attack from '../../images/attack.gif';
 import attack2 from '../../images/attack2.gif';
 import Subject from '../components/Subject';
+import Result from '../components/Result';
 
 const Game = () => {
 	const [stage, setStage] = useState(-1);
@@ -64,41 +67,52 @@ const Game = () => {
 		} else if (current === 'text6') {
 			setStage(6);
 			//
-		} else if (current === 'attack0') {
+		} else if (current === 'text6') {
+			setStage(7);
+			//
+		}
+		// 1st
+		else if (current === 'attack0') {
 			setHp(0);
-			setStage(-1);
-		} else if (current === 'attack1') {
+		}
+		// 2nd
+		else if (current === 'attack1') {
 			setHp(67);
-			setStage(-1);
 		} else if (current === 'attack2') {
 			setHp(30);
-			setStage(-1);
 		} else if (current === 'attack3') {
 			setHp(0);
-			setStage(-1);
-		} else if (current === 'attack4') {
+		}
+		// Bonus
+		else if (current === 'attack4') {
+			setHp(0);
+		}
+		// 3th
+		else if (current === 'attack5') {
 			setHp(67);
-			setStage(-1);
-		} else if (current === 'attack5') {
-			setHp(30);
-			setStage(-1);
+		} else if (current === 'attack6') {
+			setHp(34);
 		} else if (current === 'attack6') {
 			setHp(0);
-			setStage(-1);
+		} else if (current == 'move1') {
+			setBgImage(game_bg1);
+		} else if (current == 'move2') {
+			setBgImage(game_bg2);
+		} else if (current == 'move3') {
+			setBgImage(game_bg3);
 		}
 		//
 		else if (current === 'newMonster1') {
 			setHp(100);
-			setBgImage(game_bg1);
 			setMonsterImage(Stage1);
 		} else if (current === 'newMonster2') {
 			setHp(100);
-			setBgImage(game_bg1);
 			setMonsterImage(Stage2);
 		} else if (current === 'newMonster3') {
 			setHp(100);
-			setBgImage(game_bg1);
 			setMonsterImage(Stage3);
+		} else if (current.includes('result')) {
+			setStage(-1);
 		}
 	}, [current]);
 
@@ -169,6 +183,7 @@ const Game = () => {
 
 				<Box sx={{ ...AlignCenter, position: 'relative', width: '100%', height: '70%', py: 2, px: 2 }}>
 					<GameBg bgAnimation={bgAnimation} bgImage={bgImage} />
+					<Result />
 					<Subject stage={stage} type={'game'} />
 					<Box
 						sx={{

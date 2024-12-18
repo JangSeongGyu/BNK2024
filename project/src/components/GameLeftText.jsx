@@ -21,7 +21,7 @@ const GameLeftText = () => {
 				sx={{
 					width: '50%',
 					color: selected === index ? 'black' : 'white',
-					fontSize: 44,
+					fontSize: 38,
 					borderRadius: 1,
 					transition: 'all .5s',
 					pl: 2,

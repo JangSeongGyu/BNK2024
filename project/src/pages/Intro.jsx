@@ -5,8 +5,12 @@ import bg2 from '../../images/bg2.gif';
 import { keyframes } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 
+import Start from '../../music/startsong.mp3';
+import { useEffect, useRef } from 'react';
+
 const Intro = () => {
 	const navigate = useNavigate();
+	const startsong = useRef(null);
 	const MenuButton = ({ title }) => {
 		return (
 			<Typography
@@ -26,6 +30,13 @@ const Intro = () => {
 		);
 	};
 
+	useEffect(() => {
+		startsong.current.play();
+		return () => {
+			// startsong.current.pause();
+			// startsong.current.currentTime = 0;
+		};
+	}, []);
 	return (
 		<Box
 			sx={{
@@ -92,6 +103,9 @@ const Intro = () => {
 					<MenuButton title="○ Exit" />
 				</Box>
 			</Box>
+			<audio ref={startsong}>
+				<source src={Start} type="audio/mpeg" />
+			</audio>
 		</Box>
 	);
 };

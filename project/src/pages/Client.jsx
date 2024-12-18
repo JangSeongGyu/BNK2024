@@ -1,16 +1,12 @@
 import { Box, Typography } from '@mui/material';
 import { AlignCenter } from '../GeneralBoxOption';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import OnLive from '../components/OnLive';
 import axios from 'axios';
-import { toast } from 'react-hot-toast';
 import ClientSlide from '../components/ClientSlide';
 import { useParams } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { GameTextState } from '../recoil/GameSelector';
 import { SelectData, TextData } from '../components/TextData';
-import Subject from '../components/Subject';
 import SubjectClient from '../components/SubjectClient';
+import SelectButton from '../components/SelectButton';
 
 const Client = () => {
 	const [answer, setAnswer] = useState(null);
@@ -42,7 +38,7 @@ const Client = () => {
 				.catch(() => {
 					setLive(false);
 				});
-		}, 100);
+		}, 1000);
 		return () => {
 			clearInterval();
 		};
@@ -52,107 +48,66 @@ const Client = () => {
 		setAnswer('');
 	}, [stage]);
 
-	const ButtonClick = (title) => {
-		if (stage == -1) {
-			toast.error(`入力出来ません。`);
-			return;
-		}
-		setAnswer(title);
-		axios
-			.post(`/answer`, { id: client_id, answer: title })
-			.then((res) => {
-				toast.success(`「${title}」提出完了！`);
-			})
-			.catch((err) => {
-				toast.error(`「${title}」提出失敗！`);
-			});
+	const Buttons = () => {
+		const data = SelectData(stage);
+		return Object.keys(data).map((key) => {
+			return <SelectButton title={key} answer={answer} setAnswer={setAnswer} />;
+		});
 	};
 
-	const SelectButton = ({ title }) => {
-		const check = title == answer;
-		if (check) {
-			return (
-				<Box
-					sx={{
-						...AlignCenter,
-						width: '100%',
-						height: '100%',
-						border: 5,
-						borderRadius: 5,
-						borderColor: 'red',
-					}}
-				>
-					<Typography sx={{ fontSize: 80, color: 'white', pb: 2, userSelect: 'none' }}>{title}</Typography>
-				</Box>
-			);
-		}
-		return (
+	return (
+		<>
 			<Box
-				onClick={() => {
-					ButtonClick(title);
-				}}
 				sx={{
-					...AlignCenter,
+					display: stage === -1 ? 'none' : 'flex',
+					flexDirection: 'column',
 					width: '100%',
 					height: '100%',
-					border: 5,
-					borderRadius: 5,
-					borderColor: 'border.main',
+					bgcolor: 'black',
 				}}
 			>
-				<Typography sx={{ fontSize: 80, color: 'white', pb: 2, userSelect: 'none' }}>{title}</Typography>
-			</Box>
-		);
-	};
-	return (
-		<Box
-			sx={{
-				display: 'flex',
-				flexDirection: 'column',
-				width: '100%',
-				height: '100%',
-				bgcolor: 'black',
-			}}
-		>
-			<ClientSlide stage={stage} client_id={client_id} />
-			{/* <Box sx={{ display: 'flex', justifyContent: 'space-between', p: 1 }}>
+				{/* <Box sx={{ display: 'flex', justifyContent: 'space-between', p: 1 }}>
 				<Typography sx={{ color: 'white', fontSize: 20 }}>
 					{stage == -1 ? '行動不可' : 'STAGE' + stage}
 				</Typography>
 				<OnLive live={live} />
-			</Box> */}
-			<Box
-				sx={{
-					display: 'flex',
-					flexDirection: 'column',
-					height: '100%',
-					width: '100%',
-					pt: 2,
-					px: 2,
-					pb: 2,
-					borderColor: 'border.main',
-				}}
-			>
-				<Box sx={{ width: '100%', mb: 2 }}>
-					<Typography sx={{ fontSize: 18, color: 'white', border: 1, borderColor: 'border.main', p: 1 }}>
-						{gameText}
-					</Typography>
-				</Box>
-				<SubjectClient stage={stage} />
+				</Box> */}
 
-				<SelectText />
-			</Box>
-			<Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, boxSizing: 'border-box', p: 2 }}>
-				<Box sx={{ display: 'flex', width: '100%', gap: 2 }}>
-					<SelectButton title={'A'} />
-					<SelectButton title={'B'} />
+				<Box
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+						height: '100%',
+						width: '100%',
+						pt: 2,
+						px: 2,
+						pb: 2,
+						borderColor: 'border.main',
+					}}
+				>
+					<Box sx={{ width: '100%', mb: 2 }}>
+						<Typography sx={{ fontSize: 18, color: 'white', border: 1, borderColor: 'border.main', p: 1 }}>
+							{gameText}
+						</Typography>
+					</Box>
+					<SubjectClient stage={stage} />
+
+					<SelectText />
 				</Box>
-				<Box sx={{ display: 'flex', width: '100%', height: '100%', gap: 2 }}>
-					<SelectButton title={'C'} />
-					<SelectButton title={'D'} />
+				<Box
+					sx={{
+						display: 'flex',
+						flexWrap: 'wrap',
+						p: 1,
+						gap: 1,
+						boxSizing: 'border-box',
+					}}
+				>
+					<Buttons />
 				</Box>
 			</Box>
-		</Box>
+			<ClientSlide stage={stage} client_id={client_id} />
+		</>
 	);
 };
 export default Client;

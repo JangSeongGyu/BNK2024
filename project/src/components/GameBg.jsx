@@ -30,7 +30,6 @@ const GameBg = ({ bgAnimation, bgImage }) => {
 					width: '100%',
 					maxHeight: '90%',
 					borderRadius: 2,
-					// border: 5,
 					bordercolor: 'border.main',
 					zIndex: 0,
 					color: 'rgba(255,255,255,0.9)',

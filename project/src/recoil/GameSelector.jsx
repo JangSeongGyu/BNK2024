@@ -6,41 +6,69 @@ export const CurrentState = selector({
 	key: 'CurrentState',
 	get: ({ get }) => {
 		const currentList = [
-			'move',
+			'move0',
 			'exp0',
 			// 練習
 			'in0',
 			'text0',
 			'timeout0',
+			'result0',
+			'result0_change',
 			'attack0',
 			'out0',
-			'move',
+			'move1',
 			//Stage１
+			'exp1',
 			'newMonster1',
 			'in1',
 			'text1',
 			'timeout1',
+			'result1',
+			'result1_change',
 			'attack1',
 			'text2',
 			'timeout2',
+			'result2',
+			'result2_change',
 			'attack2',
 			'text3',
 			'timeout3',
+			'result3',
+			'result3_change',
 			'attack3',
 			'out1',
-			'move',
-			//Stage２
+			'move2',
+			'exp2',
+			//Bonus Stage
 			'newMonster2',
 			'in2',
 			'text4',
 			'timeout4',
+			'result4',
+			'result4_change',
 			'attack4',
+			'out2',
+			'move3',
+			'exp3',
+			'newMonster3',
+			'in3',
+
+			// 3rd Stage
 			'text5',
 			'timeout5',
+			'result5',
+			'result5_change',
 			'attack5',
 			'text6',
 			'timeout6',
+			'result6',
+			'result6_change',
 			'attack6',
+			'text7',
+			'timeout7',
+			'result7',
+			'result7_change',
+			'attack7',
 			'out',
 		];
 		const index = get(CurrentIndexState);
@@ -53,7 +81,7 @@ export const BgAnimationState = selector({
 	key: 'BgAnimationState',
 	get: ({ get }) => {
 		const current = get(CurrentState);
-		if (current == 'move') return 'move';
+		if (current.includes('move')) return 'move';
 		else return 'bgnormal';
 	},
 	set: ({ reset }) => {},
@@ -101,6 +129,7 @@ export const MonsterDisplayState = selector({
 			current.includes('in') ||
 			current.includes('text') ||
 			current.includes('timeout') ||
+			current.includes('result') ||
 			current.includes('attack')
 		) {
 			return 'block';
@@ -157,6 +186,9 @@ export const GameTextState = selector({
 	get: ({ get }) => {
 		const current = get(CurrentState);
 		switch (current) {
+			case 'move0': {
+				return 'どんな冒険が始まるんだろう…';
+			}
 			case 'in0': {
 				return 'スライムが現れた！！';
 			}
@@ -167,25 +199,44 @@ export const GameTextState = selector({
 			case 'timeout0': {
 				return TextData(0);
 			}
+			case 'result0':
+			case 'result0_change':
+			case 'result1':
+			case 'result1_change':
+			case 'result2':
+			case 'result2_change':
+			case 'result3':
+			case 'result3_change':
+			case 'result4':
+			case 'result4_change':
+			case 'result5':
+			case 'result5_change':
+			case 'result6':
+			case 'result6_change': {
+				return '皆さんの回答はこちら！';
+			}
 			case 'attack0': {
 				return '答えは「A」だ！！';
 			}
 			case 'out0': {
-				return `練習モンスターを やっつけた！\nけいけんち ０ポイントをかくとく！`;
+				return `スライムを やっつけた！\nけいけんち ０ポイントをかくとく！`;
 			}
 			//
-			case 'newmonster1': {
-				return '練習問題説明！！';
+			case 'move1': {
+				return 'はあビックリした…\n次のモンスターは何だろう？';
+			}
+			case 'newMonster1': {
+				return '忘れられた地';
 			}
 			case 'in1': {
-				return '4択モンスターが現れた！';
+				return 'ゴーレムが現れた！';
 			}
 			case 'text1':
 			case 'timeout1': {
 				return TextData(1);
 			}
 			case 'attack1': {
-				return '答えは「A」だ！';
+				return '答えは「C」だ！\nモンスターの体力が少し減った！';
 			}
 			//
 			case 'text2':
@@ -193,29 +244,46 @@ export const GameTextState = selector({
 				return TextData(2);
 			}
 			case 'attack2': {
-				return '答えは「A」だ！';
+				return '答えは「A」だ！\nモンスターの体力がさらに減った！\nあと少し！';
 			}
 			case 'text3':
 			case 'timeout3': {
 				return TextData(3);
 			}
 			case 'attack3': {
-				return '答えは「A」だ！';
+				return '答えは「C」だ！とどめの一撃！';
 			}
 			case 'out1': {
-				return `練習モンスターを やっつけた！\nけいけんち ０ポイントをかくとく！`;
+				return `ゴーレムを やっつけた！\nけいけんち 100ポイントをかくとく！`;
 			}
-			case 'in1': {
-				return '格付けモンスターが現れた！';
+			case 'move2': {
+				return 'お！この建物は何だろう…？';
+			}
+			case 'newMonster2': {
+				return '★ボーナスステージ！★';
+			}
+			case 'in2': {
+				return 'キングスライムが現れた！';
 			}
 			case 'text4':
 			case 'timeout4': {
 				return TextData(4);
 			}
 			case 'attack4': {
-				return '答えは「A」だ！';
+				return '答えは「D」だ！';
 			}
-
+			case 'out2': {
+				return 'キングスライムを倒した！';
+			}
+			case 'move3': {
+				return '夜になってきた…何だか不気味だな…';
+			}
+			case 'newMonster3': {
+				return '荒れ果てたあきる野';
+			}
+			case 'in3': {
+				return '竜王が現れた！\n「ハッハッハ！私からはとっておきの試練を与えよう！」';
+			}
 			case 'text5':
 			case 'timeout5': {
 				return TextData(5);
@@ -230,9 +298,7 @@ export const GameTextState = selector({
 			case 'attack6': {
 				return '答えは「A」だ！';
 			}
-			case 'out2': {
-				return '格付けモンスターを倒した！';
-			}
+
 			default: {
 				return '';
 			}
@@ -295,32 +361,34 @@ export const SelectorTextState = selector({
 			case 'text1':
 			case 'timeout1':
 			case 'attack1': {
-				return { A: '問題1ーA', B: '問題1ーB', C: '問題1ーC', D: '問題1ーD' };
+				return SelectData(1);
 			}
 			case 'text2':
 			case 'timeout2':
 			case 'attack2': {
-				return { A: '問題2ーA', B: '問題2ーB', C: '問題2ーC', D: '問題2ーD' };
+				return SelectData(2);
 			}
 			case 'text3':
 			case 'timeout3':
-			case 'attack3': {
-				return { A: '問題3ーA', B: '問題3ーB', C: '問題3ーC', D: '問題3ーD' };
-			}
+			case 'attack3':
+				{
+					return SelectData(3);
+				}
+				ｐ;
 			case 'text4':
 			case 'timeout4':
 			case 'attack4': {
-				return { A: '問題4ーA', B: '問題4ーB', C: '問題4ーC', D: '問題4ーD' };
+				return SelectData(4);
 			}
 			case 'text5':
 			case 'timeout5':
 			case 'attack5': {
-				return { A: '問題5ーA', B: '問題5ーB', C: '問題5ーC', D: '問題5ーD' };
+				return SelectData(5);
 			}
 			case 'text6':
 			case 'timeout6':
 			case 'attack6': {
-				return { A: '問題6ーA', B: '問題6ーB', C: '問題6ーC', D: '問題6ーD' };
+				return SelectData(6);
 			}
 			default: {
 				return { A: 'A', B: 'B', C: 'C', D: 'D' };

@@ -1,8 +1,18 @@
 import { Box, Typography } from '@mui/material';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
+import Thinking from '../../music/thinking.mp3';
+import { useRecoilValue } from 'recoil';
+import { CurrentState } from '../recoil/GameSelector';
 
 const TimeOut = () => {
-	const [timer, setTimer] = useState(60);
+	const current = useRecoilValue(CurrentState);
+	const maxTime = useMemo(() => {
+		if (current == 'timeout0') return 15;
+		else if (current == 'timeout3') return 90;
+		return 60;
+	}, [current]);
+	const [timer, setTimer] = useState(maxTime);
+	const timerRef = useRef(null);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -11,6 +21,14 @@ const TimeOut = () => {
 
 		return () => clearInterval(interval);
 	}, []);
+
+	useEffect(() => {
+		if (timer == 0) timerRef.current.pause();
+		else timerRef.current.play();
+		return () => {
+			// timerRef.current.currentTime = 0;
+		};
+	}, [timer]);
 
 	const designOption = useMemo(() => {
 		if (timer < 10) {
@@ -21,8 +39,11 @@ const TimeOut = () => {
 	}, [timer]);
 
 	return (
-		<Box sx={{ position: 'absolute', top: 35, left: 35, zIndex: 100 }}>
-			<Typography sx={{ ...designOption, fontSize: 24 + (60 - timer) * 0.6 }}>{timer}</Typography>
+		<Box sx={{ position: 'absolute', top: 35, left: 35, zIndex: 1000 }}>
+			<Typography sx={{ ...designOption, fontSize: 30 + (60 - timer) * 0.6 }}>{timer}</Typography>
+			<audio ref={timerRef}>
+				<source src={Thinking} type="audio/mpeg" />
+			</audio>
 		</Box>
 	);
 };
