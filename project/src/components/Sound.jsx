@@ -7,6 +7,7 @@ import LevelUp from '../../music/levelup.mp3';
 import Battle from '../../music/battlesong.mp3';
 import Walk from '../../music/walking.mp3';
 import WalkSound from '../../music/walkingsound.mp3';
+import attackSound from '../../music/attack.mp3';
 
 const Sound = () => {
 	const current = useRecoilValue(CurrentState);
@@ -14,6 +15,7 @@ const Sound = () => {
 	const walksound = useRef(null);
 	const level = useRef(null);
 	const battle = useRef(null);
+	const attack = useRef(null);
 
 	useEffect(() => {
 		walk.current.play();
@@ -51,6 +53,14 @@ const Sound = () => {
 				battle.current.pause();
 			};
 		}
+		if (current.includes('attack')) {
+			// walk.current.pause();
+			attack.current.play();
+			return () => {
+				attack.current.pause();
+				level.current.currentTime = 0;
+			};
+		}
 		if (current.includes('out') && !current.includes('timeout')) {
 			level.current.play();
 			return () => {
@@ -72,6 +82,9 @@ const Sound = () => {
 			</audio>
 			<audio ref={walksound}>
 				<source src={WalkSound} type="audio/mpeg" />
+			</audio>
+			<audio ref={attack}>
+				<source src={attackSound} type="audio/mpeg" />
 			</audio>
 		</>
 	);

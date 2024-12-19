@@ -9,8 +9,9 @@ import subject0 from '../../images/subject0.png';
 import subject1 from '../../images/subject1.png';
 import subject2 from '../../images/subject2.png';
 import subject3 from '../../images/subject3.png';
-
 import subject4 from '../../images/subject4.png';
+import subject5 from '../../images/subject5.png';
+import subject6 from '../../images/subject6.png';
 
 const Subject = ({ stage, type }) => {
 	const current = useRecoilValue(CurrentState);
@@ -21,6 +22,8 @@ const Subject = ({ stage, type }) => {
 		else if (stage == 2) return subject2;
 		else if (stage == 3) return subject3;
 		else if (stage == 4) return subject4;
+		else if (stage == 5) return subject5;
+		else if (stage == 6) return subject6;
 	}, [stage]);
 
 	const display = useMemo(() => {

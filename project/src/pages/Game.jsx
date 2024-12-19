@@ -33,6 +33,8 @@ import attack from '../../images/attack.gif';
 import attack2 from '../../images/attack2.gif';
 import Subject from '../components/Subject';
 import Result from '../components/Result';
+import Hide from '../components/Hide';
+import Prize from '../components/Prize';
 
 const Game = () => {
 	const [stage, setStage] = useState(-1);
@@ -53,21 +55,21 @@ const Game = () => {
 			setStage(0);
 		} else if (current === 'text1') {
 			setStage(1);
-		} else if (current === 'text2') {
+		} else if (current === 'text2' || current == 'timeout2') {
 			setStage(2);
-		} else if (current === 'text3') {
+		} else if (current === 'text3' || current == 'timeout3') {
 			setStage(3);
 			//
-		} else if (current === 'text4') {
+		} else if (current === 'text4' || current == 'timeout4') {
 			setStage(4);
 			//
-		} else if (current === 'text5') {
+		} else if (current === 'text5' || current == 'timeout5') {
 			setStage(5);
 			//
-		} else if (current === 'text6') {
+		} else if (current === 'text6' || current == 'timeout6') {
 			setStage(6);
 			//
-		} else if (current === 'text6') {
+		} else if (current === 'text7' || current == 'timeout7') {
 			setStage(7);
 			//
 		}
@@ -92,7 +94,7 @@ const Game = () => {
 			setHp(67);
 		} else if (current === 'attack6') {
 			setHp(34);
-		} else if (current === 'attack6') {
+		} else if (current === 'attack7') {
 			setHp(0);
 		} else if (current == 'move1') {
 			setBgImage(game_bg1);
@@ -100,9 +102,7 @@ const Game = () => {
 			setBgImage(game_bg2);
 		} else if (current == 'move3') {
 			setBgImage(game_bg3);
-		}
-		//
-		else if (current === 'newMonster1') {
+		} else if (current === 'newMonster1') {
 			setHp(100);
 			setMonsterImage(Stage1);
 		} else if (current === 'newMonster2') {
@@ -213,8 +213,10 @@ const Game = () => {
 								src={monsterImage}
 							/>
 
+							<Hide />
 							<Attack />
 							<HpCounter />
+							<Prize />
 						</Box>
 					</Box>
 				</Box>

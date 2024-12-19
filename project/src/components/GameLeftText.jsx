@@ -45,7 +45,7 @@ const GameLeftText = () => {
 			sx={{
 				...HorizonAlignCenter,
 				// flexDirection: 'column',
-				flexFlow: 'wrap',
+				flexFlow: Object.keys(select).length == 3 ? 'flex-wrap' : 'wrap',
 				width: '100%',
 				height: '100%',
 				bgcolor: 'rgba(0,0,0,0.85)',

@@ -26,12 +26,12 @@ export const CurrentState = selector({
 			'result1',
 			'result1_change',
 			'attack1',
-			'text2',
+			// 'text2',
 			'timeout2',
 			'result2',
 			'result2_change',
 			'attack2',
-			'text3',
+			// 'text3',
 			'timeout3',
 			'result3',
 			'result3_change',
@@ -54,22 +54,25 @@ export const CurrentState = selector({
 			'in3',
 
 			// 3rd Stage
-			'text5',
+			'hide',
 			'timeout5',
 			'result5',
 			'result5_change',
 			'attack5',
-			'text6',
+			// 'text6',
 			'timeout6',
 			'result6',
 			'result6_change',
 			'attack6',
-			'text7',
+			// 'text7',
 			'timeout7',
 			'result7',
 			'result7_change',
 			'attack7',
-			'out',
+			'out3',
+			'prize',
+			'prize_animation',
+			'paper',
 		];
 		const index = get(CurrentIndexState);
 		return currentList[index];
@@ -108,12 +111,15 @@ export const MonsterAnimationState = selector({
 				return 'dying 4s linear';
 			}
 			case 'attack4': {
-				return 'attack 1s linear';
+				return 'dying 4s linear';
 			}
 			case 'attack5': {
 				return 'attack 1s linear';
 			}
 			case 'attack6': {
+				return 'attack 1s linear';
+			}
+			case 'attack7': {
 				return 'dying 4s linear';
 			}
 		}
@@ -130,7 +136,8 @@ export const MonsterDisplayState = selector({
 			current.includes('text') ||
 			current.includes('timeout') ||
 			current.includes('result') ||
-			current.includes('attack')
+			current.includes('attack') ||
+			current.includes('hide')
 		) {
 			return 'block';
 		}
@@ -212,7 +219,9 @@ export const GameTextState = selector({
 			case 'result5':
 			case 'result5_change':
 			case 'result6':
-			case 'result6_change': {
+			case 'result6_change':
+			case 'result7':
+			case 'result7_change': {
 				return '皆さんの回答はこちら！';
 			}
 			case 'attack0': {
@@ -263,7 +272,7 @@ export const GameTextState = selector({
 				return '★ボーナスステージ！★';
 			}
 			case 'in2': {
-				return 'キングスライムが現れた！';
+				return 'メタルスライムが現れた！';
 			}
 			case 'text4':
 			case 'timeout4': {
@@ -273,7 +282,7 @@ export const GameTextState = selector({
 				return '答えは「D」だ！';
 			}
 			case 'out2': {
-				return 'キングスライムを倒した！';
+				return 'メタルスライムを やっつけた！\nけいけんち 500ポイントをかくとく！';
 			}
 			case 'move3': {
 				return '夜になってきた…何だか不気味だな…';
@@ -284,6 +293,7 @@ export const GameTextState = selector({
 			case 'in3': {
 				return '竜王が現れた！\n「ハッハッハ！私からはとっておきの試練を与えよう！」';
 			}
+
 			case 'text5':
 			case 'timeout5': {
 				return TextData(5);
@@ -298,7 +308,30 @@ export const GameTextState = selector({
 			case 'attack6': {
 				return '答えは「A」だ！';
 			}
+			case 'text7':
+			case 'timeout7': {
+				return TextData(7);
+			}
+			case 'attack7': {
+				return '答えは「A」だ！';
+			}
 
+			case 'out3': {
+				return '竜王を やっつけた！\nけいけんち 5000ポイントをかくとく！';
+			}
+
+			case 'prize': {
+				return '宝箱見せる!';
+			}
+			case 'prize_animation': {
+				return '宝箱アニメーション？';
+			}
+			case 'paper': {
+				return '紙を見せる';
+			}
+			case 'hide': {
+				return '(モクモク…)';
+			}
 			default: {
 				return '';
 			}
@@ -355,40 +388,61 @@ export const SelectorTextState = selector({
 		switch (current) {
 			case 'text0':
 			case 'timeout0':
-			case 'attack0': {
+			case 'attack0':
+			case 'result0':
+			case 'result0_change': {
 				return SelectData(0);
 			}
 			case 'text1':
 			case 'timeout1':
-			case 'attack1': {
+			case 'attack1':
+			case 'result1':
+			case 'result1_change': {
 				return SelectData(1);
 			}
 			case 'text2':
 			case 'timeout2':
-			case 'attack2': {
+			case 'attack2':
+			case 'result2':
+			case 'result2_change': {
 				return SelectData(2);
 			}
 			case 'text3':
 			case 'timeout3':
 			case 'attack3':
+			case 'result3':
+			case 'result3_change':
 				{
 					return SelectData(3);
 				}
 				ｐ;
 			case 'text4':
 			case 'timeout4':
-			case 'attack4': {
+			case 'attack4':
+			case 'result4':
+			case 'result4_change': {
 				return SelectData(4);
 			}
 			case 'text5':
 			case 'timeout5':
-			case 'attack5': {
+			case 'attack5':
+			case 'result5':
+			case 'result5_change': {
 				return SelectData(5);
 			}
 			case 'text6':
 			case 'timeout6':
-			case 'attack6': {
+			case 'attack6':
+			case 'result6':
+			case 'result6_change': {
 				return SelectData(6);
+			}
+			case 'text7':
+			case 'timeout7':
+			case 'attack7':
+			case 'result7':
+			case 'result7_change': {
+				return SelectData(7);
 			}
 			default: {
 				return { A: 'A', B: 'B', C: 'C', D: 'D' };

@@ -39,8 +39,8 @@ const TimeOut = () => {
 	}, [timer]);
 
 	return (
-		<Box sx={{ position: 'absolute', top: 35, left: 35, zIndex: 1000 }}>
-			<Typography sx={{ ...designOption, fontSize: 30 + (60 - timer) * 0.6 }}>{timer}</Typography>
+		<Box sx={{ position: 'absolute', top: 20, left: 35, zIndex: 1000 }}>
+			<Typography sx={{ ...designOption, fontSize: 60 }}>{timer}</Typography>
 			<audio ref={timerRef}>
 				<source src={Thinking} type="audio/mpeg" />
 			</audio>
