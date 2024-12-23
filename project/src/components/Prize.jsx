@@ -2,10 +2,17 @@ import { Box, Typography } from '@mui/material';
 import { useRecoilValue } from 'recoil';
 import { CurrentState } from '../recoil/GameSelector';
 import boxImage from '../../images/box.png';
+import prizeOpen from '../../images/prize_open.png';
 import paperImage from '../../images/paper.jpg';
 import { useMemo } from 'react';
 const Prize = () => {
 	const current = useRecoilValue(CurrentState);
+
+	const image = useMemo(() => {
+		if (current == 'prize_paper') return prizeOpen;
+		return boxImage;
+	}, [current]);
+
 	const display = useMemo(() => {
 		return current.includes('prize');
 	}, [current]);
@@ -15,28 +22,30 @@ const Prize = () => {
 	}, [current]);
 
 	const animation = useMemo(() => {
-		if (current == "prize_animation"){
-			return "prizeMove 2s linear infinite"
+		if (current == 'prize_animation') {
+			return 'prizeMove 2s linear infinite';
 		}
-		return "none"
+		return 'none';
 	}, [current]);
 
-	return <>
-		{display && <Box component={'img'} src={boxImage} sx={{animation:animation}} />}
-	 	{ paperDisplay && 
-		<Box 
-		sx={{
-			display:"flex",
-			justifyContent:"center",
-			alignItems:"center",
-			position:"absolute",
-			top:0,
-			left:0,
-			width:"100%",
-			height:"100%",
-		}}>
-			<Box sx={{minWidth:1000, animation:"paperIn 2s linear"}} component={"img"} src={paperImage} />
-			{/* <Typography 
+	return (
+		<>
+			{display && <Box component={'img'} src={image} sx={{ animation: animation }} />}
+			{paperDisplay && (
+				<Box
+					sx={{
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+						position: 'absolute',
+						top: 0,
+						left: 0,
+						width: '100%',
+						height: '100%',
+					}}
+				>
+					<Box sx={{ minWidth: 1000, animation: 'paperIn 1s linear' }} component={'img'} src={paperImage} />
+					{/* <Typography 
 				sx={{
 				fontSize:60,
 				justifyContent:"center",
@@ -46,10 +55,9 @@ const Prize = () => {
 				}}>
 					テーブルの下を見よ！
 			</Typography> */}
-		</Box>
-		
-}
-	
-	</>;
+				</Box>
+			)}
+		</>
+	);
 };
 export default Prize;

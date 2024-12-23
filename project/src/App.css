@@ -167,7 +167,7 @@
 
 @keyframes paperIn {
 	0% {
-		transform: scale(0.1) rotate(-1800deg);
+		transform: scale(0.1) rotateX(90deg);
 	}
 	100% {
 		transform: scale(1) rotate(0deg);

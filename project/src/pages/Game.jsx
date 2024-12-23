@@ -91,9 +91,9 @@ const Game = () => {
 		}
 		// 3th
 		else if (current === 'attack5') {
-			setHp(67);
+			setHp(600);
 		} else if (current === 'attack6') {
-			setHp(34);
+			setHp(300);
 		} else if (current === 'attack7') {
 			setHp(0);
 		} else if (current == 'move1') {
@@ -109,7 +109,7 @@ const Game = () => {
 			setHp(100);
 			setMonsterImage(Stage2);
 		} else if (current === 'newMonster3') {
-			setHp(100);
+			setHp(1000);
 			setMonsterImage(Stage3);
 		} else if (current.includes('result')) {
 			setStage(-1);

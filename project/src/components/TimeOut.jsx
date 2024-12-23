@@ -5,12 +5,13 @@ import TimeOutSound from '../../music/timeout.mp3';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { CurrentState } from '../recoil/GameSelector';
 
-const TimeOut = ({setStage}) => {
+import lastthinking from '../../music/lastthinking.mp3';
+
+const TimeOut = ({ setStage }) => {
 	const current = useRecoilValue(CurrentState);
-	
+
 	const maxTime = useMemo(() => {
 		if (current == 'timeout0') return 15;
-		
 		else if (current == 'timeout2') return 45;
 		else if (current == 'timeout3') return 90;
 		return 60;
@@ -18,7 +19,7 @@ const TimeOut = ({setStage}) => {
 	const [timer, setTimer] = useState(maxTime);
 	const timerRef = useRef(null);
 	const timeOutRef = useRef(null);
-
+	const lastThinkingRef = useRef(null);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -32,9 +33,14 @@ const TimeOut = ({setStage}) => {
 		if (timer == 0) {
 			timerRef.current.pause();
 			timeOutRef.current.play();
-			setStage(-1)
+			setStage(-1);
+		} else {
+			if (current == 'timeout7') {
+				lastThinkingRef.current.play();
+			} else {
+				timerRef.current.play();
+			}
 		}
-		else timerRef.current.play();
 		return () => {
 			// timerRef.current.currentTime = 0;
 		};
@@ -57,8 +63,11 @@ const TimeOut = ({setStage}) => {
 			<audio ref={timeOutRef}>
 				<source src={TimeOutSound} type="audio/mpeg" />
 			</audio>
+
+			<audio ref={lastThinkingRef}>
+				<source src={lastthinking} type="audio/mpeg" />
+			</audio>
 		</Box>
-		
 	);
 };
 

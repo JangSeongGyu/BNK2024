@@ -32,7 +32,9 @@ const Intro = () => {
 
 	return (
 		<Box
-		onClick ={()=>{startsong.current.play()}}
+			onClick={() => {
+				startsong.current.play();
+			}}
 			sx={{
 				...AlignCenter,
 				width: '100%',
@@ -97,10 +99,9 @@ const Intro = () => {
 					<MenuButton title="○ Exit" />
 				</Box>
 			</Box>
-			<audio ref={startsong}>
+			<audio loop ref={startsong}>
 				<source src={Start} type="audio/mpeg" />
 			</audio>
-			
 		</Box>
 	);
 };

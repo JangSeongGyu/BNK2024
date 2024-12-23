@@ -32,7 +32,7 @@ export const CurrentState = selector({
 			'result2_change',
 			'onemore2',
 			'attack2',
-			// 'text3',
+			'text3',
 			'timeout3',
 			'result3',
 			'result3_change',
@@ -56,12 +56,13 @@ export const CurrentState = selector({
 
 			// 3rd Stage
 			'hide',
-			'timeout5',
+			// 'timeout5',
 			'result5',
 			'result5_change',
 			'attack5',
+			'hide',
 			// 'text6',
-			'timeout6',
+			// 'timeout6',
 			'result6',
 			'result6_change',
 			'attack6',
@@ -229,14 +230,14 @@ export const GameTextState = selector({
 				return '答えは「A」だ！！';
 			}
 			case 'out0': {
-				return `スライムを やっつけた！\nけいけんち ０ポイントをかくとく！`;
+				return `スライムを やっつけた！\nけいけんち 1ポイントをかくとく！`;
 			}
 			//
 			case 'move1': {
 				return 'はあビックリした…\n次のモンスターは何だろう？';
 			}
 			case 'newMonster1': {
-				return '忘れられた地';
+				return '忘れられた渓谷';
 			}
 			case 'in1': {
 				return 'ゴーレムが現れた！';
@@ -256,7 +257,7 @@ export const GameTextState = selector({
 			case 'attack2': {
 				return '答えは「C」だ！\nモンスターの体力がさらに減った！\nあと少し！';
 			}
-			case 'text3':
+			// case 'text3':
 			case 'timeout3': {
 				return TextData(3);
 			}
@@ -307,17 +308,16 @@ export const GameTextState = selector({
 				return TextData(6);
 			}
 			case 'attack6': {
-				return '答えは「A」だ！';
+				return '答えは「Ｃ」だ！';
 			}
-			case 'text7':
-			{
-					return "最後はお前らが絶対に間違えられない問題を答えてもらうぞ！";
+			case 'text7': {
+				return '最後はお前らが絶対に間違えられない問題を答えてもらうぞ！';
 			}
 			case 'timeout7': {
 				return TextData(7);
 			}
 			case 'attack7': {
-				return '答えは「A」だ！';
+				return '答えは「B」だ！';
 			}
 
 			case 'out3': {
@@ -325,16 +325,16 @@ export const GameTextState = selector({
 			}
 
 			case 'prize': {
-				return '宝箱見せる!';
+				return 'おや？モンスターがいた場所に宝箱が…！';
 			}
 			case 'prize_animation': {
-				return '宝箱アニメーション？';
+				return 'カタカタカタカタ…';
 			}
 			case 'prize_paper': {
-				return '紙を見せる';
+				return '';
 			}
 			case 'hide': {
-				return '(モクモク…)';
+				return '(モクモク…)                           ドロンッ！';
 			}
 			default: {
 				return '';
@@ -415,11 +415,9 @@ export const SelectorTextState = selector({
 			case 'timeout3':
 			case 'attack3':
 			case 'result3':
-			case 'result3_change':
-				{
-					return SelectData(3);
-				}
-				ｐ;
+			case 'result3_change': {
+				return SelectData(3);
+			}
 			case 'text4':
 			case 'timeout4':
 			case 'attack4':
@@ -441,7 +439,7 @@ export const SelectorTextState = selector({
 			case 'result6_change': {
 				return SelectData(6);
 			}
-			case 'text7':
+			// case 'text7':
 			case 'timeout7':
 			case 'attack7':
 			case 'result7':

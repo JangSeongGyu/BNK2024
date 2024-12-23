@@ -3,10 +3,17 @@ import { green, grey, lightGreen, red } from '@mui/material/colors';
 import { useRecoilValue } from 'recoil';
 import { HpState } from '../recoil/GameAtom';
 import { MonsterDisplayState } from '../recoil/GameSelector';
+import { useMemo } from 'react';
 
 const HpCounter = () => {
 	const hp = useRecoilValue(HpState);
 	const monsterDisplay = useRecoilValue(MonsterDisplayState);
+	const hpcount = useMemo(() => {
+		if (hp > 100) {
+			return hp / 10;
+		}
+		return hp;
+	}, [hp]);
 	return (
 		<Box sx={{ display: monsterDisplay, position: 'relative' }}>
 			<LinearProgress
@@ -20,7 +27,7 @@ const HpCounter = () => {
 						borderRadius: 100,
 					},
 				}}
-				value={hp}
+				value={hpcount}
 				variant="determinate"
 			/>
 			<Typography

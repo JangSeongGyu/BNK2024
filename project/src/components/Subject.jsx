@@ -8,10 +8,12 @@ import { useEffect, useMemo, useState } from 'react';
 import subject0 from '../../images/subject0.png';
 import subject1 from '../../images/subject1.png';
 import subject2 from '../../images/subject2.png';
+import subject2exp from '../../images/subject2_exp.png';
 import subject3 from '../../images/subject3.png';
 import subject4 from '../../images/subject4.png';
 import subject5 from '../../images/subject5.png';
 import subject6 from '../../images/subject6.png';
+import subject7 from '../../images/subject7.png';
 
 const Subject = ({ stage, type }) => {
 	const current = useRecoilValue(CurrentState);
@@ -24,15 +26,15 @@ const Subject = ({ stage, type }) => {
 		else if (stage == 4) return subject4;
 		else if (stage == 5) return subject5;
 		else if (stage == 6) return subject6;
-		else if (stage == 7) return subject6;
-		if(current.includes("more")){
-			return subject2
+		else if (stage == 7) return subject7;
+		if (current.includes('more')) {
+			return subject2exp;
 		}
-	}, [stage,current]);
+	}, [stage, current]);
 
 	const display = useMemo(() => {
-		if (current.includes('text') || current.includes('timeout')|| current.includes('more')) {
-			if(current == "text7") return false
+		if (current.includes('text') || current.includes('timeout') || current.includes('more')) {
+			if (current == 'text7') return false;
 			return true;
 		}
 		return false;

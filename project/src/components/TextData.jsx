@@ -10,12 +10,12 @@ export const TextData = (stage) => {
 		return '完全メシスタンドの売上ランキングを正しく並べたものはどれ？';
 	} else if (stage == 4) {
 		return 'ドムドムがいた場所はどこ？';
-} else if (stage == 5) {
+	} else if (stage == 5) {
 		return 'ハーゲンダッツはどれ？\n4人の答えを参考に考えてみよ！';
 	} else if (stage == 6) {
 		return '本物の「みつを」はどれ？\n残り二つは「のりを」の作品だぞ！';
 	} else if (stage == 7) {
-return '上質紙の斤量、正しいものはどれ？\nテーブル上の紙を触って考えてみよ！';
+		return '上質紙の斤量、正しいものはどれ？\nテーブル上の紙を触って考えてみよ！';
 	} else return '';
 };
 
@@ -40,6 +40,6 @@ export const SelectData = (stage) => {
 	} else if (stage == 6) {
 		return { A: '「A」がみつをだ！', B: '「B」がみつをだ！', C: '「C」がみつをだ！' };
 	} else if (stage == 7) {
-		return { A: 'A：48.5', B: 'B：62.5', C: 'C：76.5' };
+		return { A: 'A：菊48.5', B: 'B：菊62.5', C: 'C：菊76.5' };
 	} else return {};
 };
