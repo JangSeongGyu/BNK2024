@@ -30,6 +30,7 @@ export const CurrentState = selector({
 			'timeout2',
 			'result2',
 			'result2_change',
+			'onemore2',
 			'attack2',
 			// 'text3',
 			'timeout3',
@@ -64,7 +65,7 @@ export const CurrentState = selector({
 			'result6',
 			'result6_change',
 			'attack6',
-			// 'text7',
+			'text7',
 			'timeout7',
 			'result7',
 			'result7_change',
@@ -72,7 +73,7 @@ export const CurrentState = selector({
 			'out3',
 			'prize',
 			'prize_animation',
-			'paper',
+			'prize_paper',
 		];
 		const index = get(CurrentIndexState);
 		return currentList[index];
@@ -245,7 +246,7 @@ export const GameTextState = selector({
 				return TextData(1);
 			}
 			case 'attack1': {
-				return '答えは「C」だ！\nモンスターの体力が少し減った！';
+				return '答えは「A」だ！\nモンスターの体力が少し減った！';
 			}
 			//
 			case 'text2':
@@ -253,14 +254,14 @@ export const GameTextState = selector({
 				return TextData(2);
 			}
 			case 'attack2': {
-				return '答えは「A」だ！\nモンスターの体力がさらに減った！\nあと少し！';
+				return '答えは「C」だ！\nモンスターの体力がさらに減った！\nあと少し！';
 			}
 			case 'text3':
 			case 'timeout3': {
 				return TextData(3);
 			}
 			case 'attack3': {
-				return '答えは「C」だ！とどめの一撃！';
+				return '答えは「B」だ！とどめの一撃！';
 			}
 			case 'out1': {
 				return `ゴーレムを やっつけた！\nけいけんち 100ポイントをかくとく！`;
@@ -309,6 +310,9 @@ export const GameTextState = selector({
 				return '答えは「A」だ！';
 			}
 			case 'text7':
+			{
+					return "最後はお前らが絶対に間違えられない問題を答えてもらうぞ！";
+			}
 			case 'timeout7': {
 				return TextData(7);
 			}
@@ -326,7 +330,7 @@ export const GameTextState = selector({
 			case 'prize_animation': {
 				return '宝箱アニメーション？';
 			}
-			case 'paper': {
+			case 'prize_paper': {
 				return '紙を見せる';
 			}
 			case 'hide': {

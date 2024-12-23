@@ -1,18 +1,24 @@
 import { Box, Typography } from '@mui/material';
 import { useState, useEffect, useMemo, useRef } from 'react';
 import Thinking from '../../music/thinking.mp3';
-import { useRecoilValue } from 'recoil';
+import TimeOutSound from '../../music/timeout.mp3';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { CurrentState } from '../recoil/GameSelector';
 
-const TimeOut = () => {
+const TimeOut = ({setStage}) => {
 	const current = useRecoilValue(CurrentState);
+	
 	const maxTime = useMemo(() => {
 		if (current == 'timeout0') return 15;
+		
+		else if (current == 'timeout2') return 45;
 		else if (current == 'timeout3') return 90;
 		return 60;
 	}, [current]);
 	const [timer, setTimer] = useState(maxTime);
 	const timerRef = useRef(null);
+	const timeOutRef = useRef(null);
+
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -23,7 +29,11 @@ const TimeOut = () => {
 	}, []);
 
 	useEffect(() => {
-		if (timer == 0) timerRef.current.pause();
+		if (timer == 0) {
+			timerRef.current.pause();
+			timeOutRef.current.play();
+			setStage(-1)
+		}
 		else timerRef.current.play();
 		return () => {
 			// timerRef.current.currentTime = 0;
@@ -44,7 +54,11 @@ const TimeOut = () => {
 			<audio ref={timerRef}>
 				<source src={Thinking} type="audio/mpeg" />
 			</audio>
+			<audio ref={timeOutRef}>
+				<source src={TimeOutSound} type="audio/mpeg" />
+			</audio>
 		</Box>
+		
 	);
 };
 

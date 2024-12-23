@@ -19,6 +19,10 @@ const Sound = () => {
 
 	useEffect(() => {
 		walk.current.play();
+
+		if(current.includes("hide")){
+			walk.current.pause();
+		}
 		if (current.includes('in')) {
 			walk.current.pause();
 			battle.current.play();
@@ -37,6 +41,7 @@ const Sound = () => {
 			walksound.current.pause();
 		}
 
+		if(current !== "text7"){
 		if (current.includes('text')) {
 			walk.current.pause();
 			battle.current.play();
@@ -44,7 +49,7 @@ const Sound = () => {
 				battle.current.pause();
 				battle.current.currentTime = 0;
 			};
-		}
+		}}
 
 		if (current.includes('in')) {
 			walk.current.pause();
@@ -77,7 +82,7 @@ const Sound = () => {
 			<audio ref={level}>
 				<source src={LevelUp} type="audio/mpeg" />
 			</audio>
-			<audio ref={walk}>
+			<audio loop ref={walk}>
 				<source src={Walk} type="audio/mpeg" />
 			</audio>
 			<audio ref={walksound}>

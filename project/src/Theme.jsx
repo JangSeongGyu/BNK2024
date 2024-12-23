@@ -7,7 +7,7 @@ const Theme = createTheme({
 	},
 	typography: {
 		color: 'white',
-		fontFamily: `DotGothic16`,
+		fontFamily: `"DotGothic16"`,
 	},
 	palette: {
 		border: {

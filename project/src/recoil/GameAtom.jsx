@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 
 export const CurrentIndexState = atom({
 	key: 'CurrentIndexState',
-	default: 54,
+	default: 0,
 });
 
 export const HpState = atom({

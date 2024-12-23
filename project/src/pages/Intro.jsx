@@ -30,15 +30,9 @@ const Intro = () => {
 		);
 	};
 
-	useEffect(() => {
-		startsong.current.play();
-		return () => {
-			// startsong.current.pause();
-			// startsong.current.currentTime = 0;
-		};
-	}, []);
 	return (
 		<Box
+		onClick ={()=>{startsong.current.play()}}
 			sx={{
 				...AlignCenter,
 				width: '100%',
@@ -106,6 +100,7 @@ const Intro = () => {
 			<audio ref={startsong}>
 				<source src={Start} type="audio/mpeg" />
 			</audio>
+			
 		</Box>
 	);
 };

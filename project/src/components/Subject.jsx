@@ -24,10 +24,15 @@ const Subject = ({ stage, type }) => {
 		else if (stage == 4) return subject4;
 		else if (stage == 5) return subject5;
 		else if (stage == 6) return subject6;
-	}, [stage]);
+		else if (stage == 7) return subject6;
+		if(current.includes("more")){
+			return subject2
+		}
+	}, [stage,current]);
 
 	const display = useMemo(() => {
-		if (current.includes('text') || current.includes('timeout')) {
+		if (current.includes('text') || current.includes('timeout')|| current.includes('more')) {
+			if(current == "text7") return false
 			return true;
 		}
 		return false;

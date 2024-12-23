@@ -69,7 +69,7 @@ const Game = () => {
 		} else if (current === 'text6' || current == 'timeout6') {
 			setStage(6);
 			//
-		} else if (current === 'text7' || current == 'timeout7') {
+		} else if (current == 'timeout7') {
 			setStage(7);
 			//
 		}
@@ -179,7 +179,7 @@ const Game = () => {
 				}}
 			>
 				{/* <Typography sx={{ color: 'white' }}>{current}</Typography> */}
-				{timerDisplay && <TimeOut />}
+				{timerDisplay && <TimeOut setStage={setStage} />}
 
 				<Box sx={{ ...AlignCenter, position: 'relative', width: '100%', height: '70%', py: 2, px: 2 }}>
 					<GameBg bgAnimation={bgAnimation} bgImage={bgImage} />
