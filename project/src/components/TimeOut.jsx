@@ -12,8 +12,9 @@ const TimeOut = ({ setStage }) => {
 
 	const maxTime = useMemo(() => {
 		if (current == 'timeout0') return 15;
-		else if (current == 'timeout2') return 45;
+		else if (current == 'timeout1') return 90;
 		else if (current == 'timeout3') return 90;
+		else if (current == 'timeout7') return 90;
 		return 60;
 	}, [current]);
 	const [timer, setTimer] = useState(maxTime);
@@ -56,7 +57,7 @@ const TimeOut = ({ setStage }) => {
 
 	return (
 		<Box sx={{ position: 'absolute', top: 20, left: 35, zIndex: 1000 }}>
-			<Typography sx={{ ...designOption, fontSize: 60 }}>{timer}</Typography>
+			<Typography sx={{ ...designOption, fontSize: 80 }}>{timer}</Typography>
 			<audio ref={timerRef}>
 				<source src={Thinking} type="audio/mpeg" />
 			</audio>
